@@ -1,7 +1,7 @@
 ## Getting Started
 
 -  Each library have their own link to get the module.
--  if you have any bugs or feedback please send me a message to my roblox profile
+-  if you have any bugs or feedback please send me a message to my discord : .d_0010
 
 ## Links
 
