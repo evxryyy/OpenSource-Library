@@ -1,0 +1,62 @@
+site_name: "Evxry Utils"
+site_url: "https://evxry.portfolio"
+theme:
+  name: material
+  icon:
+    logo: fontawesome/solid/bottle-water
+  palette: 
+      - scheme: slate
+        toggle:
+          icon: material/moon-first-quarter
+          name: Dark Mode
+        primary: black
+        accent: blue
+      - scheme: default
+        toggle:
+          icon: material/sun-angle
+          name: Light Mode
+        primary: black
+        accent: blue
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - abbr
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - md_in_html
+  - pymdownx.blocks.caption
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - footnotes
+  - tables
+  - pymdownx.details
+  - admonition
+
+extra:
+    social:
+        - icon: simple/roblox
+          link: https://www.roblox.com/users/3813642140/profile
+        - icon: simple/github
+          link: https://github.com/evxryyy
+
+copyright: © 2025 evxry. All rights reserved.
