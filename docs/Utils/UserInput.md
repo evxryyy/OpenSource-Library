@@ -3,7 +3,7 @@
 ### Module : [UserInput](https://create.roblox.com/store/asset/112977411128058/UserInput)
 
 On this page you will learn how to use <b>UserInput</b> module
-Please read the documention entirely if you want to really use it for your projects
+Please read the documentation entirely if you want to really use it for your projects
 
 ??? Note
 
