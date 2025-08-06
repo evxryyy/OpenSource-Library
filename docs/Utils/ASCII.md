@@ -3,7 +3,7 @@
 ### Module : [ASCII](https://github.com/evxryyy/Modules/blob/main/ASCII/init.luau)
 
 On this page you will learn how to use <b>ASCII</b> module
-Please read the documention entirely if you want to really use it for your projects
+Please read the documentation entirely if you want to really use it for your projects
 
 ??? note
 
