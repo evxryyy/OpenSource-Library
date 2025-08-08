@@ -65,6 +65,29 @@ function BufferConstructor.from(b : buffer) : Types.BufferComponentClass
 end
 
 --[[
+	convert the actual BufferComponentClass.buffer into a string
+	can only be called by the constructor not the component
+]]
+function BufferConstructor.tostring(BufferComponent : Types.BufferComponentClass)
+	return buffer.tostring(BufferComponent.buffer)
+end
+
+--[[
+	from the given string it will transform it into a BufferComponentClass
+]]
+function BufferConstructor.fromString(str : string) : Types.BufferComponentClass
+	if(not str or type(str) ~= "string") then error("please insert a valid string") end
+	return BufferConstructor.from(buffer.fromstring(str))
+end
+
+--[[
+	__tostring metamethod
+]]
+function BufferComponent.__tostring(self : Types.BufferComponentClass)
+	return `BufferComponent(Size:{buffer.len(self.buffer)})`
+end
+
+--[[
 	allocate new memory space to the actual BufferComponentClass.buffer
 ]]
 function BufferComponent.allocate(self : Types.BufferComponentClass,size : number) : ()
