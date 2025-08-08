@@ -2,6 +2,15 @@
 
 ## Logs
 
+Version : 1.2
+- added GetOffset() : number, get the current offset of the buffer
+- added GetInstanceOffset() : number,get the current instance offset of the instance buffer
+- added GetBuffer() : buffer,get the actual buffer
+- added GetInstanceBuffer() : { Instance }, get the actual instance buffer
+- added GetBufferSize() : number,get the buffer size (not the written data size)
+- added clear(), clear the current buffer and the offset too
+- added Destroy(), destroy the current BufferComponent
+
 Version : 1.1.1
 - fixed Buffer.init.spec
 
