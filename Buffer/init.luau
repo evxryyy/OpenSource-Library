@@ -4,7 +4,7 @@
 --[[
 	Author : evxry_ll
 
-	Buffer : A powerfull library to write data across remote event using "buffer" type
+	Buffer : A powerfull library to write data with the "buffer" type
 	This library add new type to buffer such as :
 
 		Signed Interger : I24,I40,I48,I54
