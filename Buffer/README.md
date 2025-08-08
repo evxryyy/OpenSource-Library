@@ -2,6 +2,9 @@
 
 ## Logs
 
+Version : 1.1.1
+- fixed Buffer.init.spec
+
 Version : 1.1
 - added .__tostring(), for BufferComponent when "print" is called
 - added .fromString(), create a BufferComponent with the given string
