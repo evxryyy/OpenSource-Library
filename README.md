@@ -1,7 +1,7 @@
 # OpenEvxEngine 
 
 ## Engine Documentation
-  - [Docs](https://evxryyy.github.io/OpenEvxEngine/Utils/UserInput)
+  - [Docs](https://evxryyy.github.io/OpenEvxEngine)
 
 ## Engine API
   - Buffer (documentation not available)
