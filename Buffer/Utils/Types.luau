@@ -104,6 +104,14 @@ export type BufferComponentClass = {
 	--Regions3
 	ReadRegion3 : (self : BufferComponentClass,offset : number?) -> Region3,
 	ReadRegion3int16 : (self : BufferComponentClass,offset : number?) -> Region3int16,
+	--------------------------Cursor/Buffer--------------------------
+	GetOffset : (self : BufferComponentClass) -> number,
+	GetInstanceOffset : (self : BufferComponentClass) -> number,
+	GetBuffer : (self : BufferComponentClass) -> buffer,
+	GetInstanceBuffer : (self : BufferComponentClass) -> { Instance },
+	GetBufferSize : (self : BufferComponentClass) -> number,
+	clear : (self : BufferComponentClass) -> (),
+	Destroy : (self : BufferComponentClass) -> (),
 }
 
 return nil
