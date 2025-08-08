@@ -1287,4 +1287,65 @@ function BufferComponent.ReadRegion3int16(self : Types.BufferComponentClass,offs
 	return Region3int16.new(min,max)
 end
 
+-->-----------------------Cursor/Buffer-----------------------------<--
+
+--[[
+	return the actual offset of the buffer
+]]
+function BufferComponent.GetOffset(self : Types.BufferComponentClass)
+	return self.offset
+end
+
+--[[
+	return the actual instance offset of the buffer
+]]
+function BufferComponent.GetInstanceOffset(self : Types.BufferComponentClass)
+	return self.instance_offset
+end
+
+--[[
+	return the current buffer
+]]
+function BufferComponent.GetBuffer(self : Types.BufferComponentClass)
+	return self.buffer
+end
+
+--[[
+	return the current instance buffer
+]]
+function BufferComponent.GetInstanceBuffer(self : Types.BufferComponentClass)
+	return self.instance_buffer
+end
+
+--[[
+	return the actual buffer size (not the written data size)
+]]
+function BufferComponent.GetBufferSize(self : Types.BufferComponentClass)
+	return buffer.len(self.buffer)
+end
+
+--[[
+	clear the buffer to a new one with the same size
+	the offset is also set to 0.
+]]
+function BufferComponent.clear(self : Types.BufferComponentClass)
+	local buffer_blank = buffer.create(buffer.len(self.buffer))
+	self.buffer = buffer_blank
+	self.offset = 0
+end
+
+--[[
+	Destroy the actual BufferComponent.
+	You can't use the BufferComponent after this.
+]]
+function BufferComponent.Destroy(self : Types.BufferComponentClass)
+	self.buffer = nil :: any
+	self.instance_buffer = nil :: any
+	self.instance_offset = nil :: any
+	self.offset = nil :: any
+	table.clear(self)
+	setmetatable(self,nil)
+	self = nil :: any
+end
+
 return BufferConstructor
