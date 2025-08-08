@@ -1,8 +1,12 @@
 # OpenEvxEngine 
 
+## Engine Documentation
+  - [Docs](https://evxryyy.github.io/OpenEvxEngine/Utils/UserInput)
+
 ## Engine API
-  - Buffer
+  - Buffer (documentation not available)
   - UserInput
+  - ASCII
 
 ## Description
 I am trying to make my engine for roblox with extremely usefull library...
