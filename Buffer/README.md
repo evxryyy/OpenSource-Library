@@ -2,8 +2,6 @@
 
 ## What next
 
-- add a way to get the actual written data size and be able to shrink the buffer.
-
 ## Logs
 
 Version : 1.2
