@@ -2,9 +2,7 @@
 
 ## What next
 
-- add a way to write and read any enums type
 - add a way to get the actual written data size and be able to shrink the buffer.
-- add a way to write and read a Signed Interger 1 (1-bit) (values: -1,1)
 
 ## Logs
 
