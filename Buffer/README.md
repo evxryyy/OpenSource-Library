@@ -4,6 +4,9 @@
 
 ## Logs
 
+Version : 1.2.1
+- fixed Buffer.init.spec
+
 Version : 1.2
 - added GetOffset() : number, get the current offset of the buffer
 - added GetInstanceOffset() : number,get the current instance offset of the instance buffer
