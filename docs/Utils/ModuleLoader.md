@@ -280,11 +280,18 @@ Init/Start must not yield (no unbounded WaitForChild or network waits).
 ---
 
 #### ModuleLoader.Find(ModulePath: ModuleScript | string) -> RegisteryIndex?
-
 - Locates a previously loaded module:
   - By name (string)
   - By instance (ModuleScript)
 - Returns the `RegisteryIndex` entry (or nil if not found).
+
+#### ModuleLoader.WaitUntilStarted() -> number
+- return the elapsted time until the module loader start.
+
+---
+
+#### ModuleLoader.IsStarted() -> boolean
+- return trued if the module loader is started.
 
 ---
 
