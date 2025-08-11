@@ -29,6 +29,9 @@ local RunService = game:GetService("RunService")
 --static start variable
 local started = false
 
+--static loaded module variable
+local loaded_module = {} :: Registery
+
 --Debug print
 local SERVER_PRINT = "[S] --> %s"
 local CLIENT_PRINT = "[C] --> %s"
@@ -50,13 +53,14 @@ export type Settings = {
 }
 
 export type ModuleLoader = {
-	_register : Registery,
 	Load : (descendant : Instance) -> (),
 	Start : () -> (),
 	SetSettings : (customSettings : Settings) -> (),
 	Each : (callback : (Module : ModuleScript) -> boolean) -> (),
 	Clear : () -> (),
 	Find : (ModulePath : ModuleScript | string) -> RegisteryIndex?,
+	WaitUntilStarted : () -> number,
+	IsStarted : () -> boolean,
 }
 
 export type ModuleLoaderComponent = {
@@ -68,14 +72,13 @@ export type ModuleLoaderComponent = {
 
 local ModuleLoader = {}
 ModuleLoader.__index = ModuleLoader
-ModuleLoader._register = {} :: Registery
 
 --init all module and register the current one in the registery
 local function initTargetModule(descendant : Instance,settings : Settings)
 	if(settings.USE_DESCENDANT) then
 		for i,module in pairs(descendant:GetDescendants()) do
 			if(module:IsA("ModuleScript")) then
-				table.insert(ModuleLoader._register,{
+				table.insert(loaded_module,{
 					instance = module,
 					module = require(module),
 					priority = module:GetAttribute("Priority") or 1
@@ -88,7 +91,7 @@ local function initTargetModule(descendant : Instance,settings : Settings)
 	else
 		for i,module in pairs(descendant:GetChildren()) do
 			if(module:IsA("ModuleScript")) then
-				table.insert(ModuleLoader._register,{
+				table.insert(loaded_module,{
 					instance = module,
 					module = require(module),
 					priority = module:GetAttribute("Priority") or 1
@@ -103,7 +106,7 @@ end
 
 --sort all module depending on the priority attribute
 local function sortRegistery()
-	table.sort(ModuleLoader._register,function(a : RegisteryIndex,b : RegisteryIndex)
+	table.sort(loaded_module,function(a : RegisteryIndex,b : RegisteryIndex)
 		return a.priority > b.priority
 	end)
 end
@@ -145,7 +148,7 @@ end
 function ModuleLoader.Start()
 	assert(not started,"You can't start more than once the module loader.")
 	if(RunService:IsServer()) then
-		for i,registeryIndex : RegisteryIndex in pairs(ModuleLoader._register) do
+		for i,registeryIndex : RegisteryIndex in pairs(loaded_module) do
 			if(SETTINGS.SHOW_DEBUG_PRINT) then
 				print((SERVER_PRINT):format(`Initializing module : "{registeryIndex.instance.Name}"`))
 				registeryIndex.module:Init()
@@ -157,7 +160,7 @@ function ModuleLoader.Start()
 		end
 		started = true
 	else
-		for i,registeryIndex : RegisteryIndex in pairs(ModuleLoader._register) do
+		for i,registeryIndex : RegisteryIndex in pairs(loaded_module) do
 			if(SETTINGS.SHOW_DEBUG_PRINT) then
 				print((CLIENT_PRINT):format(`Initializing module : "{registeryIndex.instance.Name}"`))
 				registeryIndex.module:Init()
@@ -179,7 +182,7 @@ end
 function ModuleLoader.Each(callback : (module : ModuleScript) -> boolean)
 	assert(not started,"You can't start more than once the module loader.")
 	if(RunService:IsServer()) then
-		for i,registeryIndex : RegisteryIndex in pairs(ModuleLoader._register) do
+		for i,registeryIndex : RegisteryIndex in pairs(loaded_module) do
 			local result = callback(registeryIndex.instance)
 			if(not result) then continue end
 			if(SETTINGS.SHOW_DEBUG_PRINT) then
@@ -197,7 +200,7 @@ function ModuleLoader.Each(callback : (module : ModuleScript) -> boolean)
 		end
 		started = true
 	else
-		for i,registeryIndex : RegisteryIndex in pairs(ModuleLoader._register) do
+		for i,registeryIndex : RegisteryIndex in pairs(loaded_module) do
 			local result = callback(registeryIndex.instance)
 			if(not result) then continue end
 			if(SETTINGS.SHOW_DEBUG_PRINT) then
@@ -231,7 +234,7 @@ end
 ]]
 function ModuleLoader.Clear()
 	if(RunService:IsServer()) then
-		for i,registeryIndex : RegisteryIndex in pairs(ModuleLoader._register) do
+		for i,registeryIndex : RegisteryIndex in pairs(loaded_module) do
 			if(registeryIndex.module.Cleaning) then
 				print((SERVER_PRINT):format(`Cleaning module : "{registeryIndex.instance.Name}"`))
 				registeryIndex.module:Cleaning()
@@ -239,7 +242,7 @@ function ModuleLoader.Clear()
 			end
 		end
 	else
-		for i,registeryIndex : RegisteryIndex in pairs(ModuleLoader._register) do
+		for i,registeryIndex : RegisteryIndex in pairs(loaded_module) do
 			if(registeryIndex.module.Cleaning) then
 				print((CLIENT_PRINT):format(`Cleaning module : "{registeryIndex.instance.Name}"`))
 				registeryIndex.module:Cleaning()
@@ -247,8 +250,7 @@ function ModuleLoader.Clear()
 			end
 		end
 	end
-	table.clear(ModuleLoader._register)
-	ModuleLoader._register = {}
+	table.clear(loaded_module)
 end
 
 --[[
@@ -265,7 +267,7 @@ end
 	Find the loaded module from the Instance or from the name
 ]]
 function ModuleLoader.Find(ModulePath : ModuleScript | string)
-	for i,registeryIndex : RegisteryIndex in pairs(ModuleLoader._register) do
+	for i,registeryIndex : RegisteryIndex in pairs(loaded_module) do
 		if(type(ModulePath) == "string") then
 			if(registeryIndex.instance.Name == ModulePath) then
 				return registeryIndex
@@ -276,6 +278,27 @@ function ModuleLoader.Find(ModulePath : ModuleScript | string)
 			end
 		end
 	end
+end
+
+--[[
+	Yield until the module loader is started
+	You can use it to make sure that the module loader is started before using it
+	this also return the ammount of seconds passed since the start
+]]
+function ModuleLoader.WaitUntilStarted()
+	local secondsPassed = tick()
+	repeat
+		task.wait()
+	until started == true
+	return tick() - secondsPassed
+end
+
+--[[
+	Return true if the module loader is started
+	You can use it to check if the module loader is started
+]]
+function ModuleLoader.IsStarted()
+	return started
 end
 
 return ModuleLoader :: ModuleLoader
