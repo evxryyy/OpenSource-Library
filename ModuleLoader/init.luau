@@ -61,6 +61,7 @@ export type ModuleLoader = {
 	Find : (ModulePath : ModuleScript | string) -> RegisteryIndex?,
 	WaitUntilStarted : () -> number,
 	IsStarted : () -> boolean,
+	Stop : () -> (),
 }
 
 export type ModuleLoaderComponent = {
