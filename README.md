@@ -6,7 +6,9 @@
 ## Engine API
   - Buffer (documentation not available)
   - UserInput
-  - ASCII
+  - ASCII (Binary)
+  - Nexus (Networking)
+  - ModuleLoader (Loader)
 
 ## Description
 I am trying to make my engine for roblox with extremely usefull library...
