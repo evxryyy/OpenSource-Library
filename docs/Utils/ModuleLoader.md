@@ -285,6 +285,8 @@ Init/Start must not yield (no unbounded WaitForChild or network waits).
   - By instance (ModuleScript)
 - Returns the `RegisteryIndex` entry (or nil if not found).
 
+---
+
 #### ModuleLoader.WaitUntilStarted() -> number
 - return the elapsted time until the module loader start.
 
