@@ -4,7 +4,7 @@
   - [Docs](https://evxryyy.github.io/OpenEvxEngine)
 
 ## Engine API
-  - Buffer (documentation not available)
+  - Buffer
   - UserInput
   - ASCII (Binary)
   - Nexus (Networking)
