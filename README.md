@@ -9,6 +9,9 @@
   - ASCII (Binary)
   - Nexus (Networking)
   - ModuleLoader (Loader)
+  - Task
+  - Enum
+  - Option
 
 ## Description
 I am trying to make my engine for roblox with extremely usefull library...
