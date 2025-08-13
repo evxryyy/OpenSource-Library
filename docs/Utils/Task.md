@@ -1,6 +1,10 @@
 # Task
 
-Get Task : [Task](https://github.com/evxryyy/OpenEvxEngine/releases/tag/task)
+---
+
+## Installation [Task](https://github.com/evxryyy/OpenEvxEngine/releases/tag/task)
+
+---
 
 This module handle Instance/Metatable/Connection with clean up function ex 
 
@@ -10,69 +14,80 @@ This module handle Instance/Metatable/Connection with clean up function ex
 
 More clean up function can be set directly from the module itself
 
-## Get Started
+## Getting Started
 
+---
 
 === "Connection"
     ```lua
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-        local Task = require(ReplicatedStorage.Task)
-        --[[
-            Task.new() return a new TaskClass
-        ]]
-        local TaskHandler = Task.new()
-        TaskHandler:Add(workspace.Baseplate:GetPropertyChangedSignal("Position"):Connect(function(...: any) 
-            -- do stuff here
-        end)) -- Connect the function to the handler
-        TaskHandler:Destroy() -- Connection(s) will be disconnected
+    local Task = require(ReplicatedStorage.Task)
+
+    --[[
+        Task.new() return a new TaskClass
+    ]]
+    local TaskHandler = Task.new()
+
+    TaskHandler:Add(workspace.Baseplate:GetPropertyChangedSignal("Position"):Connect(function(...: any) 
+        -- do stuff here
+    end)) -- Connect the function to the handler
+
+    TaskHandler:Destroy() -- Connection(s) will be disconnected
     ```
 
 === "Instance"
     ```lua
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-        local Task = require(ReplicatedStorage.Task)
-        --[[
-            Task.new() return a new TaskClass
-        ]]
-        local TaskHandler = Task.new()
-        TaskHandler:Add(workspace.Baseplate) -- Attach the Baseplate to the task handler
-        TaskHandler:Destroy() -- Baseplate will be destroyed
+    local Task = require(ReplicatedStorage.Task)
+
+    --[[
+        Task.new() return a new TaskClass
+    ]]
+    local TaskHandler = Task.new()
+
+    TaskHandler:Add(workspace.Baseplate) -- Attach the Baseplate to the task handler
+
+    TaskHandler:Destroy() -- Baseplate will be destroyed
     ```
 
 === "Class"
     ```lua
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-        local Task = require(ReplicatedStorage.Task)
+    local Task = require(ReplicatedStorage.Task)
 
-        --Create a random strict class
-        local class = {
-            Destroy = function()
-                print("Cleaning...")
-            end,
-        }
-        setmetatable(class,{
-            __index = function(t,k)
-                warn(`Can't get Class::{type(k)}`)
-            end,
-            __newindex = function(t,k,v)
-                warn(`Can't set Class:{type(k)} (not a valid member)`)
-            end,
-            
-        })
-        --[[
-            Task.new() return a new TaskClass
-        ]]
-        local TaskHandler = Task.new()
-        TaskHandler:Add(class) -- Added "Class" to the task handler
-        TaskHandler:Destroy() -- Will print "Cleaning..."
+    --Create a random strict class
+    local class = {
+        Destroy = function()
+            print("Cleaning...")
+        end,
+    }
+    setmetatable(class,{
+        __index = function(t,k)
+            warn(`Can't get Class::{type(k)}`)
+        end,
+        __newindex = function(t,k,v)
+            warn(`Can't set Class:{type(k)} (not a valid member)`)
+        end,    
+    })
+
+    --[[
+        Task.new() return a new TaskClass
+    ]]
+    local TaskHandler = Task.new()
+
+    TaskHandler:Add(class) -- Added "Class" to the task handler
+
+    TaskHandler:Destroy() -- Will print "Cleaning..."
     ```
     !!! info "Class without clean up function"
         If you try to pass a class without a single clean up function the class will be discarded and not added to the task handler.
 
 ## Using Signal
+
+---
 
 Exemples:
 
@@ -82,46 +97,52 @@ link: [Signal Module](https://github.com/Sleitnick/RbxUtil/blob/main/modules/sig
 
 === "Code"
     ```lua
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-        local Task = require(ReplicatedStorage.Task)
-        local Signal = require(ReplicatedStorage.Signal)
+    local Task = require(ReplicatedStorage.Task)
+    local Signal = require(ReplicatedStorage.Signal)
 
-        local TaskHandler = Task.new()
-        local signal = Signal.new()
+    local TaskHandler = Task.new()
+    local signal = Signal.new()
 
-        TaskHandler:Add(signal:Connect(function(...)
-            print(...) -- Will print hello signal
-        end))
+    TaskHandler:Add(signal:Connect(function(...)
+        print(...) -- Will print hello signal
+    end))
 
-        signal:Fire("Hello Signal")
+    signal:Fire("Hello Signal")
 
-        TaskHandler:Clean()
+    TaskHandler:Clean()
 
-        signal:Fire("Goodbye Signal") -- This will never show
+    signal:Fire("Goodbye Signal") -- This will never show
     ```
 
 ## Using Promise
+
+---
 
 For promise you should prefer to use :AddPromise instead of Add
 
 === "Code"
     ```lua
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-        local Task = require(ReplicatedStorage.Task)
-        local Promise = require(ReplicatedStorage.Promise)
+    local Task = require(ReplicatedStorage.Task)
+    local Promise = require(ReplicatedStorage.Promise)
 
-        local TaskHandler = Task.new()
-        TaskHandler:AddPromise(Promise.new(function(resolve,reject,onCancel) 
+    local TaskHandler = Task.new()
+
+    TaskHandler:AddPromise(Promise.new(function(resolve,reject,onCancel) 
             -- Promise stuff here
-        end))
-        TaskHandler:Clean()
+    end))
+
+    TaskHandler:Clean()
     ```
 
 ## Executing function
 
-The :Execute function allow you to directly call a function (only) instead of calling this function the clean up state
+---
+
+The :Execute function allow you to directly call a function (only) instead of calling this function in the clean up state
 
 === "Code"
 ```lua
@@ -145,7 +166,13 @@ The :Execute function allow you to directly call a function (only) instead of ca
     TaskHandler:Clean()
 ```
 
-## GetTaskAtIndex(index : number)
+## API
+
+---
+
+### GetTaskAtIndex(index : number)
+
+---
 
 You can get the added connection/class/instance/function from the target index
 
@@ -172,7 +199,9 @@ You can get the added connection/class/instance/function from the target index
     !!! info "Calling function with GetTaskAtIndex"
         if you call a returned function from GetTaskAtIndex at the CleanUp state of Task the same function will be called
 
-##  IsTask()
+###  IsTask()
+
+---
 
 Check if the current passed table is a task Class
 
@@ -188,12 +217,3 @@ Check if the current passed table is a task Class
     print(Task.IsTask(TaskHandler)) -- true
     print(Task.IsTask({})) -- false
     ```
-
-## Info
-
-This module is still not finished but this is the first version of it
-
-## Version
-
-
-VERSION : 1.0
