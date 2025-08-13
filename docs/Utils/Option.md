@@ -73,14 +73,14 @@ local requiredPart = maybePart:Expect("SpawnLocation is required!")
 
 ---
 
-- Some<T> = T
+- Some<<T>T> = T
 - None = () -> ()
-- Callback<T> = () -> T
-- MappedCallback<T> = (value: T) -> T
-- FilterCallback<T> = (value: T) -> boolean
-- AndThenCallback<T, K> = (value: T) -> any
+- Callback<<T>T> = () -> T
+- MappedCallback<<T>T> = (value: T) -> T
+- FilterCallback<<T>T> = (value: T) -> boolean
+- AndThenCallback<<T, K>T, K> = (value: T) -> any
 
-- OptionComponent<T> (metatable-backed)
+- OptionComponent<<T>T> (metatable-backed)
   - Fields:
     - Tag: "Some" | "None"
     - Some: T
@@ -91,11 +91,11 @@ local requiredPart = maybePart:Expect("SpawnLocation is required!")
 
 ---
 
-- Option.Some<T>(value: T): OptionComponent<T>
-- Option.None(): OptionComponent<nil>
-- Option.IsOption<T>(value: any): boolean
-- Option.Wrap<T>(value: T?): OptionComponent<T> | OptionComponent<nil>
-- Option.Deserialize<T>(data: { Tag: "Some" | "None", Value: T }): OptionComponent<T>
+- Option.Some<<T>T>(value: T) : OptionComponent<<T>T>
+- Option.None() : OptionComponent<nil>
+- Option.IsOption<<T>T>(value: any) : boolean
+- Option.Wrap<<T>T>(value: T?) : OptionComponent<<T>T> | OptionComponent<<nil>nil>
+- Option.Deserialize<<T>T>(data: { Tag: "Some" | "None", Value: T }) : OptionComponent<<T>T>
 
 ### Option methods
 
@@ -105,18 +105,18 @@ local requiredPart = maybePart:Expect("SpawnLocation is required!")
 - IsNone<<T>T>(self): boolean
 - Match<<T>T>(self, opts: { Some: (T) -> any, None: () -> any }) : any
 - Assert<<T>T>(self, errorMessage: string) : ()
-- GetOr<<T, K>T, k>(self, defaultValue: K) : T | K
+- GetOr<<T, K>T, K>(self, defaultValue: K) : T | K
 - Map<<T>T>(self, fn: (T) -> T) : OptionComponent<<T>T>
 - Filter<<T>T>(self, pred: (T) -> boolean) : OptionComponent<<T>T> | OptionComponent<<T>T>
-- GetOrElse<<T, K>T, k>(self, fn: () -> K) : T | K
+- GetOrElse<<T, K>T, K>(self, fn: () -> K) : T | K
 - XOR<<T>T>(self, other: OptionComponent<<T>T>) : OptionComponent<<T>T> | OptionComponent<<T>T>
-- AndThen<<T, K>T, k>(self, fn: (T) -> OptionComponent<<K>K>) : OptionComponent<<T>T> | OptionComponent<<K>K>
+- AndThen<<T, K>T, K>(self, fn: (T) -> OptionComponent<<K>K>) : OptionComponent<<T>T> | OptionComponent<<K>K>
 - Expect<<T>T>(self, msg: string): T
 - ExpectNone<<T>T>(self, msg: string) : ()
 - UnWrap<<T>T>(self) : T
-- UnWrapOr<<T, K>T, k>(self, defaultValue: K) : T | K
-- UnWrapOrElse<<T, K>T, k>(self, fn: () -> K) : T | K
-- Contains<<T, K>T, k>(self, value: K) : boolean
+- UnWrapOr<<T, K>T, K>(self, defaultValue: K) : T | K
+- UnWrapOrElse<<T, K>T, K>(self, fn: () -> K) : T | K
+- Contains<<T, K>T, K>(self, value: K) : boolean
 - Serialize<<T>T>(self) : { Tag: "Some" | "None", Value?: T }
 
 ### Metamethods
