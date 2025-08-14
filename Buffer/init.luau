@@ -5,11 +5,45 @@
 	Author : evxry_ll
 
 	Buffer : A powerfull library to write data with the "buffer" type
-	This library add new type to buffer such as :
 
-		Signed Interger : I24,I40,I48,I54
-		Unsigned Interger : U1,U24,U40,U48,U54
-		Float : F16
+    Supported Data Types:
+    
+    ================ INTEGER TYPES ================
+    Signed Integers:
+    - I8  (8-bit)   : -128 to 127
+    - I16 (16-bit)  : -32,768 to 32,767
+    - I24 (24-bit)  : -8,388,608 to 8,388,607
+    - I32 (32-bit)  : -2,147,483,648 to 2,147,483,647
+    - I40 (40-bit)  : -549,755,813,888 to 549,755,813,887
+    - I48 (48-bit)  : -140,737,488,355,328 to 140,737,488,355,327
+    - I54 (54-bit)  : -9,007,199,254,740,992 to 9,007,199,254,740,991
+    
+    Unsigned Integers:
+    - U1  (1-bit)   : 0 to 1
+    - U8  (8-bit)   : 0 to 255
+    - U16 (16-bit)  : 0 to 65,535
+    - U24 (24-bit)  : 0 to 16,777,215
+    - U32 (32-bit)  : 0 to 4,294,967,295
+    - U40 (40-bit)  : 0 to 1,099,511,627,775
+    - U48 (48-bit)  : 0 to 281,474,976,710,655
+    - U54 (54-bit)  : 0 to 18,014,398,509,481,984
+    
+    ================ FLOATING POINT TYPES ================
+    - F16 (16-bit) : Half-precision float
+    - F32 (32-bit) : Single-precision float
+    - F64 (64-bit) : Double-precision float
+    
+    ================ OTHER DATA TYPES ================
+    - Boolean (1-bit and 8-bit packed)
+    - Strings (with various length limits: 8, 16, 32, 64 chars or unlimited)
+    - Color3
+    - Vector2, Vector3
+    - Vector2int16, Vector3int16
+    - CFrame (both regular and lossy compressed versions)
+    - UDim, UDim2
+    - Rect
+    - Region3, Region3int16
+    - Instances (stored in a separate instance buffer)
 
 	you are free to edit this has you want but if you want to publish it PLEASE READ LICENSE.
 
