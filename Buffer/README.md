@@ -4,6 +4,9 @@
 
 ## Logs
 
+Version : 1.2.2
+- updated comments.
+
 Version : 1.2.1
 - fixed Buffer.init.spec
 
