@@ -11,9 +11,6 @@
 		Unsigned Interger : U1,U24,U40,U48,U54
 		Float : F16
 
-	other data type are basic one such a color,vector,cframe etc or just number like default.
-	this the first version of the current library more type or optimization will come
-
 	you are free to edit this has you want but if you want to publish it PLEASE READ LICENSE.
 
 	fore more control of this library go take a look of Constants inside this module for number and float precisions
