@@ -1,201 +1,96 @@
 # UserInput
 
-## Getting Started
+## Overview
 
-### Module : [UserInput](https://create.roblox.com/store/asset/112977411128058/UserInput)
+The UserInput Component is a Roblox module that provides a unified interface for handling user input from both keyboard and gamepad devices. It abstracts the differences between input types and provides a consistent API with signal-based events.
 
-On this page you will learn how to use <b>UserInput</b> module
-Please read the documentation entirely if you want to really use it for your projects
+## Features
 
-??? Note
+- Dual Input Support: Seamlessly handle both Keyboard and Gamepad inputs
+- Dynamic Switching: Change input types on the fly
+- Key Registration: Filter which keys trigger events
+- Signal-Based Events: Clean event system for key press/release
+- Input Observation: Detect when users switch input methods
+- Proper Cleanup: Built-in memory management
 
-    This module only handle gamepad and keyboard maybe in future update i will include mouse controll and touch.
+## Installation: [UserInput](https://github.com/evxryyy/OpenEvxEngine/releases/tag/script)
 
-### Basic
+## API
 
-=== "Initialize"
+### Constructor
 
-    ```lua linenums="1"
-    local UserInput = require(somewhere.UserInput)
+#### ```new(config: UserInputConfiguration): UserInputComponent```
 
-    local Init = UserInput.new({
-        Keys = {Enum.KeyCode.E};
-        InputType = "Keyboard"
-    })
-    ```
+Creates a new UserInput component instance.
 
-    This will basically create a new Input Object with custom methods to adding/changing/removings key or directly changing
-    the input type itself.
+Parameters:
 
-    !!! note
-    
-        <b>The keys argument should always be a an array of Enum.KeyCode</b>
+config: Configuration object with the following properties:
 
+- Keys: {Enum.KeyCode} - Array of keys to register
+- InputType: "Gamepad" | "Keyboard" - Initial input type
+`
+### Component
 
-### Connecting Pressed and Released.
+#### ```Pressed(self : UserInputComponent,callback : (key : Enum.KeyCode) -> ()) -> SignalConnectionStruct```
 
-=== "Pressed "
+Public method to connect a callback to the key pressed event
 
-    ```lua linenums="1"
-    local UserInput = require(somewhere.UserInput)
+- @param callback: Function that will be called when a registered key is pressed
+- @return: SignalConnection that can be used to disconnect the callback
 
-    local Init = UserInput.new({
-        Keys = {Enum.KeyCode.E};
-        InputType = "Keyboard"
-    })
+#### ```Released(self : UserInputComponent,callback : (key : Enum.KeyCode) -> ()) -> SignalConnectionStruct```
 
-    Init:Pressed(function(key : Enum.KeyCode)
-        print(key) -- This will print the actual pressed key.
-    end)
-    ```
+Public method to connect a callback to the key released event
 
-    !!! note
-        For disconnecting the pressed event i recommend you to call :DisconnectPressed()
+- @param callback: Function that will be called when a registered key is released
+- @return: SignalConnection that can be used to disconnect the callback
 
-=== "Released"
+#### ```Observe(self : UserInputComponent,callback : (InputType : "Gamepad" | "MouseKeyboard" | "Touch") -> ()) : () -> ()```
 
-    ```lua linenums="1"
-    local UserInput = require(somewhere.UserInput)
+ Observe changes in the user's preferred input method
 
-    local Init = UserInput.new({
-        Keys = {Enum.KeyCode.E};
-        InputType = "Keyboard"
-    })
+- @param callback: Function called when input type changes (Gamepad, MouseKeyboard, or Touch)
+- @return: Cleanup function to stop observing
 
-    Init:Released(function(key : Enum.KeyCode)
-        print(key) -- This will print the actual released key.
-    end)
-    ```
 
-    !!! note
-        For disconnecting the pressed event i recommend you to call :DisconnectReleased()
+#### ```ChangeInputType(self : UserInputComponent,InputType : "Gamepad" | "Keyboard")```
 
+Dynamically change the input type between Gamepad and Keyboard
+This will clear all registered keys and recreate the input handlers
 
-### Add/Change/Remove Keys
+- @param InputType: Either "Gamepad" or "Keyboard"
 
-With the current initialized Input you can still change or adding new keys during run time or even removing them all functions concerning this should you always have a an array of Enum.KeyCode to work.
+#### ```ChangeKey(self : UserInputComponent,Keys : {Enum.KeyCode})```
 
-=== "Changing keys"
+Replace all currently registered keys with a new set
 
-    ```lua
-    local UserInput = require(somewhere.UserInput)
+- @param Keys: Array of KeyCodes to register
 
-    local Init = UserInput.new({
-        Keys = {Enum.KeyCode.E};
-        InputType = "Keyboard"
-    })
+#### ```AddKey(self : UserInputComponent,Keys : {Enum.KeyCode})```
 
-    Init:Pressed(function(key : Enum.KeyCode)
-        print(key) -- This will print the actual pressed key.
-    end)
+Add new keys to the existing registered set
+Duplicate keys are automatically ignored
 
-    Input:ChangeKey({Enum.KeyCode.A}) 
-    -- old keys will be removed and changed to new one (E is not longer detected) without disconnecting and reconnecting the .Pressed
-    ```
+- @param Keys: Array of KeyCodes to add
 
-=== "Adding Keys"
+#### ```RemoveKey(self : UserInputComponent,Keys : {Enum.KeyCode})```
 
-    ```lua
-    local UserInput = require(somewhere.UserInput)
+Remove specific keys from the registered set
 
-    local Init = UserInput.new({
-        Keys = {Enum.KeyCode.E};
-        InputType = "Keyboard"
-    })
+- @param Keys: Array of KeyCodes to remove
 
-    Init:Pressed(function(key : Enum.KeyCode)
-        print(key) -- This will print the actual pressed key.
-    end)
+#### ```DisconnectPressed(self : UserInputComponent)```
 
-    Input:AddKey({Enum.KeyCode.A}) 
-    -- A will now being detected when pressed without disconnecting and reconnecting the .Pressed
-    ```
+Disconnect all callbacks connected to the KeyPressed signal
+Useful for temporarily disabling key press detection
 
+#### ```DisconnectReleased(self : UserInputComponent)```
 
-=== "Removing Keys"
+Disconnect all callbacks connected to the KeyReleased signal
+Useful for temporarily disabling key release detection
 
-    ```lua
-    local UserInput = require(somewhere.UserInput)
+#### ```Destroy(self : UserInputComponent)```
 
-    local Init = UserInput.new({
-        Keys = {Enum.KeyCode.E};
-        InputType = "Keyboard"
-    })
-
-    Init:Pressed(function(key : Enum.KeyCode)
-        print(key) -- This will print the actual pressed key.
-    end)
-
-    Input:RemoveKey({Enum.KeyCode.E}) 
-    -- E will be removed and being no longer detected without disconnecting and reconnecting the .Pressed
-    ```
-
-### Changing InputType
-
-In runtime you can also change which type of input you want to use for exemple if you wanna have custom pressed event for gamepad you should do
-
-=== "Keyboard to Gamepad"
-
-    ```lua
-    local UserInput = require(somewhere.UserInput)
-
-    local Init = UserInput.new({
-        Keys = {Enum.KeyCode.E};
-        InputType = "Keyboard"
-    })
-
-    Init:Pressed(function(key : Enum.KeyCode)
-        print(key) -- This will print the actual pressed key.
-    end)
-
-    Init:ChangeInputType("Gamepad") -- Pressed no need to be reconnected.
-    Init:ChangeKey({Enum.KeyCode.ButtonB}) -- Key must be changed after changing the InputType
-    ```
-
-=== "Gamepad to Keyboard"
-
-    ```lua
-    local UserInput = require(somewhere.UserInput)
-
-    local Init = UserInput.new({
-        Keys = {Enum.KeyCode.ButtonB};
-        InputType = "Gamepad"
-    })
-
-    Init:Pressed(function(key : Enum.KeyCode)
-        print(key) -- This will print the actual pressed key.
-    end)
-
-    Init:ChangeInputType("Keyboard") -- Pressed no need to be reconnected.
-    Init:ChangeKey({Enum.KeyCode.A}) -- Key must be changed after changing the InputType
-    ```
-
-
-Pretty simple for changing InputType if needed.
-
-### Disconnections
-
-When creating a new Input Object when you want to disconnect pressed or released events please call one of them directly
-
-		.DisconnectPressed() -> Disconnect the pressed signal
-		.DisconnectReleased() -> Disconnect the released signal
-
-### Destroy
-
-You can also destroy the Input Object by calling directly:
-
-		.Destroy() -> Destroy Signals and everything related to the Input
-
-### Tips
-
-I recommend you to use .Observe for detecting the input type of the user.
-
-### __PRIVATE__
-
-        {
-            .KeyPressed : Signal<key : KeyCode> -> the signal that fire each time a correct key is pressed (PLEASE USE :Pressed functions)
-            .KeyReleased : Signal<key : KeyCode> -> the signal that fire each time a correct key is released (PLEASE USE :Released functions)
-            .__setUpInputStructKeyPressed() -> automaticly called to init the input pressed capture (DO NOT CALL THIS FUNCTION)
-            .__setUpInputStructKeyReleased() -> automaticly called to init the input released capture (DO NOT CALL THIS FUNCTION)
-            .inputStruct :  GamepadStruct | KeyboardStruct -> determinate wich input is used (see Input Framework from sleitnick DO NOT MODIFY OR DESTROY THIS STRUCT).
-        }
+Complete cleanup of the UserInput component
+This should be called when the component is no longer needed
