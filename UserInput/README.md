@@ -4,6 +4,11 @@
 
 ## Logs
 
+Version : 1.2
+- fixed some issues with .KeyReleased
+- updated comments
+- updated api
+
 Version : 1.1
 - added .Observe(), track the current input type of the user.
 - fixed type annotation bug
