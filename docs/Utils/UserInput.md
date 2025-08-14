@@ -188,9 +188,7 @@ You can also destroy the Input Object by calling directly:
 
 ### Tips
 
-I recommend you to also use PreferredInput from Sleitnick for detecting when a player is playing with a gamepad/keyboard/mobile
-
-so you will be able to dynamicly change the InputType during runtime without having many connections for the actual input
+I recommend you to use .Observe for detecting the input type of the user.
 
 ### __PRIVATE__
 
