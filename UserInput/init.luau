@@ -180,25 +180,24 @@ end
 -- Public method to connect a callback to the key pressed event
 -- @param callback: Function that will be called when a registered key is pressed
 -- @return: SignalConnection that can be used to disconnect the callback
-function Component.Pressed(self : UserInputComponent,callback : (key : Enum.KeyCode) -> ())
+function Component.Pressed(self : UserInputComponent,callback : (key : Enum.KeyCode) -> ()) : SignalConnectionStruct
 	return self.KeyPressed:Connect(callback)
 end
 
 -- Public method to connect a callback to the key released event
 -- @param callback: Function that will be called when a registered key is released
 -- @return: SignalConnection that can be used to disconnect the callback
--- NOTE: This appears to have a bug - it connects to KeyPressed instead of KeyReleased
-function Component.Released(self : UserInputComponent,callback : (key : Enum.KeyCode) -> ())
-	return self.KeyPressed:Connect(callback) -- BUG: Should be self.KeyReleased:Connect(callback)
+function Component.Released(self : UserInputComponent,callback : (key : Enum.KeyCode) -> ()) : SignalConnectionStruct
+	return self.KeyReleased:Connect(callback)
 end
 
 -- Observe changes in the user's preferred input method
 -- @param callback: Function called when input type changes (Gamepad, MouseKeyboard, or Touch)
 -- @return: Cleanup function to stop observing
-function Component.Observe(self : UserInputComponent,callback : (InputType : "Gamepad" | "MouseKeyboard" | "Touch") -> ())
+function Component.Observe(self : UserInputComponent,callback : (InputType : "Gamepad" | "MouseKeyboard" | "Touch") -> ()) : () -> ()
 	-- Set up the observer and store the cleanup function
 	self.InputObserver = PreferredInput.Observe(callback)
-	return self.InputObserver
+	return self.InputObserver :: () -> ()
 end
 
 -- Dynamically change the input type between Gamepad and Keyboard
