@@ -12,6 +12,8 @@
   - Task
   - Enum
   - Option
+  - SyncHandler (SignalLike for BindableFunction)
+  - SyncSignal (SignalLike for BindableEvent)
 
 ## Description
 I am trying to make my engine for roblox with extremely usefull library...
