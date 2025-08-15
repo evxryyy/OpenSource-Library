@@ -4,6 +4,9 @@
 
 ## Logs
 
+Version : 1.2.1
+- added alias for the constructor and the component
+
 Version : 1.2
 - fixed some issues with .KeyReleased
 - updated comments
