@@ -303,7 +303,7 @@ Component.removekey = Component.RemoveKey
 Component.disconnectPressed = Component.DisconnectPressed
 Component.disconnectpressed = Component.DisconnectPressed
 Component.disconnectReleased = Component.DisconnectReleased
-Component.disconecctreleased = Component.DisconnectReleased
+Component.disconnectreleased = Component.DisconnectReleased
 Component.observe = Component.Observe
 
 
