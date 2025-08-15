@@ -305,6 +305,7 @@ Component.disconnectpressed = Component.DisconnectPressed
 Component.disconnectReleased = Component.DisconnectReleased
 Component.disconnectreleased = Component.DisconnectReleased
 Component.observe = Component.Observe
+Component.destroy = Component.Destroy
 
 
 return UserInput
