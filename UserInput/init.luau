@@ -288,4 +288,23 @@ function Component.Destroy(self : UserInputComponent)
 	self.RemoveKey(self,self.KeysRegistered)
 end
 
+--Constructor alias
+UserInput.New = UserInput.new
+
+--Component alias
+Component.pressed = Component.Pressed
+Component.released = Component.Released
+Component.changeInputType = Component.ChangeInputType
+Component.changeInputtype = Component.ChangeInputType
+Component.addKey = Component.AddKey
+Component.addkey = Component.AddKey
+Component.removeKey = Component.RemoveKey
+Component.removekey = Component.RemoveKey
+Component.disconnectPressed = Component.DisconnectPressed
+Component.disconnectpressed = Component.DisconnectPressed
+Component.disconnectReleased = Component.DisconnectReleased
+Component.disconecctreleased = Component.DisconnectReleased
+Component.observe = Component.Observe
+
+
 return UserInput
