@@ -5,6 +5,7 @@
 ## Logs
 
 Version : 1.2
+- fixed a bug where calling the :Start and putting the settings SHOW_DEBUG_PRINT on false was not initializing and starting any module
 - fixed a bug where calling the :Clean method will still display print even if the SHOW_DEBUG_PRINT was set on false
 - added alias
   ```lua
