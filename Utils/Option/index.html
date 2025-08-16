@@ -1,0 +1,1340 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://evxry.portfolio/Utils/Option/">
+      
+      
+        <link rel="prev" href="../Nexus/">
+      
+      
+        <link rel="next" href="../SyncHandler/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+    
+    
+      
+        <title>Option - Evxry Utils</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#option" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Evxry Utils" class="md-header__button md-logo" aria-label="Evxry Utils" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M112-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32h-96C94.3 32 80 17.7 80 0s14.3-32 32-32M16 144c0-35.3 28.7-64 64-64h160c35.3 0 64 28.7 64 64 0 24.1-13.3 45.1-33 56 19.7 10.9 33 31.9 33 56s-13.3 45.1-33 56c19.7 10.9 33 31.9 33 56s-13.3 45.1-33 56c19.7 10.9 33 31.9 33 56 0 35.3-28.7 64-64 64H80c-35.3 0-64-28.7-64-64 0-24.1 13.3-45.1 33-56-19.7-10.9-33-31.9-33-56s13.3-45.1 33-56c-19.7-10.9-33-31.9-33-56s13.3-45.1 33-56c-19.7-10.9-33-31.9-33-56"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Evxry Utils
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Option
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2v20a10 10 0 0 0 0-20"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Light Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.8 5.2C13 5 12.2 5 11.4 5l3.2-2.7 1.4 4c-.7-.5-1.4-.8-2.2-1.1M7 7.1c.6-.6 1.3-1.1 2-1.4l-4.1-.8.7 4.1c.4-.7.8-1.4 1.4-1.9m-1.8 6.7C5 13 5 12.2 5 11.4l-2.7 3.2 4 1.4c-.5-.6-.9-1.4-1.1-2.2M22 19v2H3l5.4-5.5c-1.9-2-1.9-5.1 0-7.1 1.9-1.9 5.1-1.9 7 0l3-3 1.4 1.4L7.7 19z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Evxry Utils" class="md-nav__button md-logo" aria-label="Evxry Utils" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M112-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32h-96C94.3 32 80 17.7 80 0s14.3-32 32-32M16 144c0-35.3 28.7-64 64-64h160c35.3 0 64 28.7 64 64 0 24.1-13.3 45.1-33 56 19.7 10.9 33 31.9 33 56s-13.3 45.1-33 56c19.7 10.9 33 31.9 33 56s-13.3 45.1-33 56c19.7 10.9 33 31.9 33 56 0 35.3-28.7 64-64 64H80c-35.3 0-64-28.7-64-64 0-24.1 13.3-45.1 33-56-19.7-10.9-33-31.9-33-56s13.3-45.1 33-56c-19.7-10.9-33-31.9-33-56s13.3-45.1 33-56c-19.7-10.9-33-31.9-33-56"/></svg>
+
+    </a>
+    Evxry Utils
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Utils
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Utils
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ASCII/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ASCII
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Buffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Buffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Enum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Enum
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ModuleLoader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ModuleLoader
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Nexus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Nexus
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Option
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Option
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting started
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-option" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download : Option
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metamethods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metamethods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aliases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aliases
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#called-unwrap-on-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      "Called UnWrap() on None"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#my-map-lost-the-type-i-wanted" class="md-nav__link">
+    <span class="md-ellipsis">
+      My Map lost the type I wanted
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#current-callback-must-return-a-optioncomponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      "current callback must return a OptionComponent."
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#match-signature-confusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Match signature confusion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optionisoption-returned-false" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option.IsOption returned false
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equality-not-behaving-as-expected" class="md-nav__link">
+    <span class="md-ellipsis">
+      Equality not behaving as expected
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serialization-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serialization pitfalls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design notes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#map-vs-andthen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Map vs. AndThen
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern matching
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SyncHandler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SyncHandler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SyncSignal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SyncSignal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Task/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UserInput/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    UserInput
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting started
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-option" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download : Option
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metamethods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metamethods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aliases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aliases
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#called-unwrap-on-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      "Called UnWrap() on None"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#my-map-lost-the-type-i-wanted" class="md-nav__link">
+    <span class="md-ellipsis">
+      My Map lost the type I wanted
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#current-callback-must-return-a-optioncomponent" class="md-nav__link">
+    <span class="md-ellipsis">
+      "current callback must return a OptionComponent."
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#match-signature-confusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Match signature confusion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optionisoption-returned-false" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option.IsOption returned false
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equality-not-behaving-as-expected" class="md-nav__link">
+    <span class="md-ellipsis">
+      Equality not behaving as expected
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serialization-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serialization pitfalls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design notes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#map-vs-andthen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Map vs. AndThen
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern matching
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="option">Option</h1>
+<h2 id="overview">Overview</h2>
+<p>This module implements a Rust-like <code>Option&lt;T&gt;</code>:</p>
+<ul>
+<li><code>Some(value)</code> holds a value of type <code>T</code></li>
+<li><code>None</code> represents the absence of a value</li>
+</ul>
+<p>It helps you avoid nil checks sprinkled across your code and centralizes handling via:</p>
+<ul>
+<li>Safe accessors (<code>GetOr</code>, <code>GetOrElse</code>, <code>UnwrapOr</code>, <code>Expect</code>, …)</li>
+<li>Transformations (<code>Map</code>, <code>AndThen</code>)</li>
+<li>Predicates (<code>IsSome</code>, <code>IsNone</code>, <code>Contains</code>, <code>Filter</code>)</li>
+<li>Combinators (<code>XOR</code>)</li>
+<li>Pattern matching (<code>Match</code>)</li>
+<li>Serialization (<code>Serialize</code>, <code>Deserialize</code>)</li>
+</ul>
+<p>Lowercase aliases are provided (e.g., <code>unwrap</code>, <code>getOr</code>, <code>andThen</code>, …) in addition to PascalCase.</p>
+<h2 id="getting-started">Getting started</h2>
+<hr />
+<h2 id="installation">Installation</h2>
+<h3 id="download-option">Download : <a href="https://github.com/evxryyy/OpenEvxEngine/releases/tag/option">Option</a></h3>
+<ul>
+<li>Place the Option module (this file) in a shared location like <code>ReplicatedStorage</code>.</li>
+<li>Require it where you need it:</li>
+</ul>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">ReplicatedStorage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">game</span><span class="p">:</span><span class="nf">GetService</span><span class="p">(</span><span class="s2">&quot;ReplicatedStorage&quot;</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">Option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="nv">ReplicatedStorage</span><span class="p">.</span><span class="py">Option</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="quick-example">Quick example</h2>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">ReplicatedStorage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">game</span><span class="p">:</span><span class="nf">GetService</span><span class="p">(</span><span class="s2">&quot;ReplicatedStorage&quot;</span><span class="p">)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">Option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="nv">ReplicatedStorage</span><span class="p">.</span><span class="py">Option</span><span class="p">)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">-- Wrap a possibly-nil value (Some if not nil, otherwise None)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kd">local</span><span class="w"> </span><span class="nv">maybePart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Option</span><span class="p">.</span><span class="nf">Wrap</span><span class="p">(</span><span class="nv">workspace</span><span class="p">:</span><span class="nf">FindFirstChild</span><span class="p">(</span><span class="s2">&quot;SpawnLocation&quot;</span><span class="p">))</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1">-- Access with default:</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="kd">local</span><span class="w"> </span><span class="nv">part</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">maybePart</span><span class="p">:</span><span class="nf">GetOr</span><span class="p">(</span><span class="nv">workspace</span><span class="p">.</span><span class="py">Terrain</span><span class="p">)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1">-- Filter + transform + default:</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="kd">local</span><span class="w"> </span><span class="nv">displayName</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="nv">Option</span><span class="p">.</span><span class="nf">Wrap</span><span class="p">(</span><span class="nv">game</span><span class="p">.</span><span class="py">Players</span><span class="p">.</span><span class="py">LocalPlayer</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">game</span><span class="p">.</span><span class="py">Players</span><span class="p">.</span><span class="py">LocalPlayer</span><span class="p">.</span><span class="py">DisplayName</span><span class="p">)</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="p">:</span><span class="nf">Filter</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="nv">n</span><span class="p">)</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="o">#</span><span class="nv">n</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">end</span><span class="p">)</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">        </span><span class="p">:</span><span class="nf">Map</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="nv">n</span><span class="p">)</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="nv">n</span><span class="p">:</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="kr">end</span><span class="p">)</span><span class="w"> </span><span class="c1">-- Map keeps the same type</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="p">:</span><span class="nf">GetOr</span><span class="p">(</span><span class="s2">&quot;GUEST&quot;</span><span class="p">)</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Display:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">displayName</span><span class="p">)</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="c1">-- Pattern match:</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="nv">maybePart</span><span class="p">:</span><span class="nf">Match</span><span class="p">({</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">  </span><span class="nv">Some</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">p</span><span class="p">)</span><span class="w"> </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found part:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">p</span><span class="p">.</span><span class="py">Name</span><span class="p">);</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="kr">end</span><span class="p">,</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">  </span><span class="nv">None</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">()</span><span class="w"> </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No part found&quot;</span><span class="p">);</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="kr">end</span><span class="p">,</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="p">})</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="c1">-- Unwrap with message (throws if None)</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="kd">local</span><span class="w"> </span><span class="nv">requiredPart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">maybePart</span><span class="p">:</span><span class="nf">Expect</span><span class="p">(</span><span class="s2">&quot;SpawnLocation is required!&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="api">API</h2>
+<hr />
+<h3 id="types">Types</h3>
+<hr />
+<ul>
+<li>Some&lt;<T>T&gt; = T</li>
+<li>None = () -&gt; ()</li>
+<li>Callback&lt;<T>T&gt; = () -&gt; T</li>
+<li>MappedCallback&lt;<T>T&gt; = (value: T) -&gt; T</li>
+<li>FilterCallback&lt;<T>T&gt; = (value: T) -&gt; boolean</li>
+<li>
+<p>AndThenCallback&lt;<T, K>T, K&gt; = (value: T) -&gt; any</p>
+</li>
+<li>
+<p>OptionComponent&lt;<T>T&gt; (metatable-backed)</p>
+</li>
+<li>Fields:<ul>
+<li>Tag: "Some" | "None"</li>
+<li>Some: T</li>
+<li>None: nil</li>
+</ul>
+</li>
+<li>Methods: see below</li>
+</ul>
+<h3 id="constructors">Constructors</h3>
+<hr />
+<ul>
+<li>Option.Some&lt;<T>T&gt;(value: T) : OptionComponent&lt;<T>T&gt;</li>
+<li>Option.None() : OptionComponent<nil></li>
+<li>Option.IsOption&lt;<T>T&gt;(value: any) : boolean</li>
+<li>Option.Wrap&lt;<T>T&gt;(value: T?) : OptionComponent&lt;<T>T&gt; | OptionComponent&lt;<nil>nil&gt;</li>
+<li>Option.Deserialize&lt;<T>T&gt;(data: { Tag: "Some" | "None", Value: T }) : OptionComponent&lt;<T>T&gt;</li>
+</ul>
+<h3 id="option-methods">Option methods</h3>
+<hr />
+<ul>
+<li>IsSome&lt;<T>T&gt;(self): boolean</li>
+<li>IsNone&lt;<T>T&gt;(self): boolean</li>
+<li>Match&lt;<T>T&gt;(self, opts: { Some: (T) -&gt; any, None: () -&gt; any }) : any</li>
+<li>Assert&lt;<T>T&gt;(self, errorMessage: string) : ()</li>
+<li>GetOr&lt;<T, K>T, K&gt;(self, defaultValue: K) : T | K</li>
+<li>Map&lt;<T>T&gt;(self, fn: (T) -&gt; T) : OptionComponent&lt;<T>T&gt;</li>
+<li>Filter&lt;<T>T&gt;(self, pred: (T) -&gt; boolean) : OptionComponent&lt;<T>T&gt; | OptionComponent&lt;<T>T&gt;</li>
+<li>GetOrElse&lt;<T, K>T, K&gt;(self, fn: () -&gt; K) : T | K</li>
+<li>XOR&lt;<T>T&gt;(self, other: OptionComponent&lt;<T>T&gt;) : OptionComponent&lt;<T>T&gt; | OptionComponent&lt;<T>T&gt;</li>
+<li>AndThen&lt;<T, K>T, K&gt;(self, fn: (T) -&gt; OptionComponent&lt;<K>K&gt;) : OptionComponent&lt;<T>T&gt; | OptionComponent&lt;<K>K&gt;</li>
+<li>Expect&lt;<T>T&gt;(self, msg: string): T</li>
+<li>ExpectNone&lt;<T>T&gt;(self, msg: string) : ()</li>
+<li>UnWrap&lt;<T>T&gt;(self) : T</li>
+<li>UnWrapOr&lt;<T, K>T, K&gt;(self, defaultValue: K) : T | K</li>
+<li>UnWrapOrElse&lt;<T, K>T, K&gt;(self, fn: () -&gt; K) : T | K</li>
+<li>Contains&lt;<T, K>T, K&gt;(self, value: K) : boolean</li>
+<li>Serialize&lt;<T>T&gt;(self) : { Tag: "Some" | "None", Value?: T }</li>
+</ul>
+<h3 id="metamethods">Metamethods</h3>
+<hr />
+<ul>
+<li>__tostring(self): string</li>
+<li>__eq(self, other): boolean</li>
+</ul>
+<h3 id="aliases">Aliases</h3>
+<hr />
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- Lowercase aliases for methods (alternative naming convention)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1">-- These provide the same functionality with camelCase naming</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">Unwrap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">UnWrap</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">UnwrapOr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">UnWrapOr</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">getOr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">GetOr</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">getOrElse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">GetOrElse</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">expectNone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">ExpectNone</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">andThen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">AndThen</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">Map</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">Filter</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">assert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">Assert</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">match</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">Match</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">contains</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">Contains</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">isNone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">IsNone</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">isSome</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">IsSome</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">serialize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionComponent</span><span class="p">.</span><span class="py">Serialize</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="c1">-- OptionConstructor lowercase aliases</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="nv">OptionConstructor</span><span class="p">.</span><span class="py">isOption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionConstructor</span><span class="p">.</span><span class="py">IsOption</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="nv">OptionConstructor</span><span class="p">.</span><span class="py">deserialize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">OptionConstructor</span><span class="p">.</span><span class="py">Deserialize</span>
+</span></code></pre></div>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<hr />
+<h4 id="called-unwrap-on-none">"Called UnWrap() on None"</h4>
+<ul>
+<li>You called <code>UnWrap()</code>/<code>Unwrap()</code> on a <code>None</code>. Use <code>GetOr</code>, <code>GetOrElse</code>, or <code>Expect</code> with a message.</li>
+</ul>
+<hr />
+<h4 id="my-map-lost-the-type-i-wanted">My <code>Map</code> lost the type I wanted</h4>
+<ul>
+<li><code>Map</code> is monomorphic: <code>(T) -&gt; T</code>. To change type (e.g., string → number), use <code>AndThen</code> and return another <code>Option</code>.</li>
+</ul>
+<hr />
+<h4 id="current-callback-must-return-a-optioncomponent">"current callback must return a OptionComponent."</h4>
+<ul>
+<li>Your <code>AndThen</code> callback must return an <code>Option</code> (i.e., <code>Option.Some(...)</code> or <code>Option.None()</code>).</li>
+</ul>
+<hr />
+<h4 id="match-signature-confusion"><code>Match</code> signature confusion</h4>
+<ul>
+<li><code>Match</code> executes either <code>opts.None()</code> or <code>opts.Some(value)</code>. It returns whatever your callback returns. Keep callbacks side-effect-safe.</li>
+</ul>
+<hr />
+<h4 id="optionisoption-returned-false"><code>Option.IsOption</code> returned false</h4>
+<ul>
+<li><code>IsOption</code> checks for a <code>Tag</code> field. Ensure you're passing an <code>Option</code> created by this module.</li>
+</ul>
+<hr />
+<h4 id="equality-not-behaving-as-expected">Equality not behaving as expected</h4>
+<ul>
+<li><code>Some(a) == Some(b)</code> uses <code>a == b</code>. If <code>a</code> and <code>b</code> are tables, that’s reference equality by default in Luau.</li>
+</ul>
+<hr />
+<h4 id="serialization-pitfalls">Serialization pitfalls</h4>
+<ul>
+<li><code>Serialize</code> stores raw <code>Value</code>. Ensure the value is serializable (no cyclic references, userdata, etc.).</li>
+</ul>
+<hr />
+<h2 id="design-notes"><b>Design notes</b></h2>
+<hr />
+<ul>
+<li>The Option is represented as a table with a <code>Tag</code>:</li>
+<li><code>Tag = "Some"</code> and a <code>Some</code> field containing the value</li>
+<li><code>Tag = "None"</code> (and an internal <code>None = true</code> field)</li>
+<li><code>IsOption</code> uses a structural check (<code>option and option.Tag</code>)—simple and fast.</li>
+</ul>
+<h3 id="map-vs-andthen"><b>Map vs. AndThen</b></h3>
+<hr />
+<ul>
+<li><code>Map</code> keeps the type: <code>(T) -&gt; T</code>.</li>
+<li><code>AndThen</code> allows changing type: <code>(T) -&gt; Option&lt;K&gt;</code>; it asserts that the callback returns an <code>Option</code>.</li>
+</ul>
+<h3 id="pattern-matching"><b>Pattern matching</b></h3>
+<hr />
+<ul>
+<li><code>Match</code> expects a table with <code>Some</code> and <code>None</code> callbacks:
+  ```lua
+  opt:Match({
+    Some = function(v) ... end,
+    None = function() ... end,
+  })</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2025 evxry. All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.roblox.com/users/3813642140/profile" target="_blank" rel="noopener" title="www.roblox.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.926 23.998 0 18.892 5.075.002 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/evxryyy" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
