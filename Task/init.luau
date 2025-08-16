@@ -208,7 +208,7 @@ end
 	Executes a function and returns its result
 	Utility method for running code within the Task context
 	@param self - The Task instance
-	@param fn - The function to execute
+	@param callback - The function to execute
 	@return any - The function's return value
 ]]
 _task_.Execute = function(self,callback : (...any) -> ...any) : ...any
