@@ -157,6 +157,9 @@ function ModuleLoader.Start()
 				print((SERVER_PRINT):format(`Starting module {registeryIndex.instance.Name}`))
 				registeryIndex.module:Start()
 				print((SERVER_PRINT):format(`Started module {registeryIndex.instance.Name}`))
+			else
+				registeryIndex.module:Init()
+				registeryIndex.module:Start()
 			end
 		end
 		started = true
@@ -169,6 +172,9 @@ function ModuleLoader.Start()
 				print((CLIENT_PRINT):format(`Starting module {registeryIndex.instance.Name}`))
 				registeryIndex.module:Start()
 				print((CLIENT_PRINT):format(`Started module {registeryIndex.instance.Name}`))
+			else
+				registeryIndex.module:Init()
+				registeryIndex.module:Start()
 			end
 		end
 		started = true
@@ -237,17 +243,25 @@ function ModuleLoader.Clear()
 	if(RunService:IsServer()) then
 		for i,registeryIndex : RegisteryIndex in pairs(loaded_module) do
 			if(registeryIndex.module.Cleaning) then
-				print((SERVER_PRINT):format(`Cleaning module : "{registeryIndex.instance.Name}"`))
+				if(SETTINGS.SHOW_DEBUG_PRINT) then
+					print((SERVER_PRINT):format(`Cleaning module : "{registeryIndex.instance.Name}"`))
+				end
 				registeryIndex.module:Cleaning()
-				print((SERVER_PRINT):format(`Cleaned module : "{registeryIndex.instance.Name}"`))
+				if(SETTINGS.SHOW_DEBUG_PRINT) then
+					print((SERVER_PRINT):format(`Cleaned module : "{registeryIndex.instance.Name}"`))
+				end
 			end
 		end
 	else
 		for i,registeryIndex : RegisteryIndex in pairs(loaded_module) do
 			if(registeryIndex.module.Cleaning) then
-				print((CLIENT_PRINT):format(`Cleaning module : "{registeryIndex.instance.Name}"`))
+				if(SETTINGS.SHOW_DEBUG_PRINT) then
+					print((CLIENT_PRINT):format(`Cleaning module : "{registeryIndex.instance.Name}"`))
+				end
 				registeryIndex.module:Cleaning()
-				print((CLIENT_PRINT):format(`Cleaned module : "{registeryIndex.instance.Name}"`))
+				if(SETTINGS.SHOW_DEBUG_PRINT) then
+					print((CLIENT_PRINT):format(`Cleaned module : "{registeryIndex.instance.Name}"`))
+				end
 			end
 		end
 	end
@@ -301,5 +315,16 @@ end
 function ModuleLoader.IsStarted()
 	return started
 end
+
+--Constructor alias
+ModuleLoader.load = ModuleLoader.Load
+ModuleLoader.start = ModuleLoader.Start
+ModuleLoader.setSettings = ModuleLoader.SetSettings
+ModuleLoader.each = ModuleLoader.Each
+ModuleLoader.clear = ModuleLoader.Clear
+ModuleLoader.find = ModuleLoader.Find
+ModuleLoader.waitUntilStarted = ModuleLoader.WaitUntilStarted
+ModuleLoader.isStarted = ModuleLoader.IsStarted
+ModuleLoader.stop = ModuleLoader.Stop
 
 return ModuleLoader :: ModuleLoader
