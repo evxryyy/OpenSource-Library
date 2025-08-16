@@ -54,9 +54,6 @@
 	the buffer inside can be encrypted for security purpose.
 --]]
 
---Types
-local Types = require("@self/Utils/Types")
-
 --Constants
 local Constants = require("@self/Constants")
 
@@ -67,10 +64,19 @@ BufferConstructor.__index = BufferConstructor
 local BufferComponent = {}
 BufferComponent.__index = BufferComponent
 
+--Types
+export type BufferComponentClass = typeof(setmetatable({} :: {
+	offset : number,
+	instance_offset : number,
+	buffer : buffer,
+	instance_buffer : { Instance },
+	allocate : (self : BufferComponentClass,size : number) -> (),
+},BufferComponent))
+
 --[[
 	create a BufferComponentClass with the given size
 ]]
-function BufferConstructor.create(size : number) : Types.BufferComponentClass
+function BufferConstructor.create(size : number) : BufferComponentClass
 	if(not size or (size) <= 0) then size = 1 end
 	local self = setmetatable({
 		offset = 0,
@@ -84,7 +90,7 @@ end
 	from the given buffer it will transform it into a BufferComponentClass
 	all data written in the buffer will not be lost and you will be able to read it with :Read[DataTypeName] methods.
 ]]
-function BufferConstructor.from(b : buffer) : Types.BufferComponentClass
+function BufferConstructor.from(b : buffer) : BufferComponentClass
 	if(not b and type(b) ~= "buffer") then error("please insert a valid buffer") end
 	local self = setmetatable({
 		offset = buffer.len(b),
@@ -99,14 +105,14 @@ end
 	convert the actual BufferComponentClass.buffer into a string
 	can only be called by the constructor not the component
 ]]
-function BufferConstructor.tostring(BufferComponent : Types.BufferComponentClass)
+function BufferConstructor.tostring(BufferComponent : BufferComponentClass)
 	return buffer.tostring(BufferComponent.buffer)
 end
 
 --[[
 	from the given string it will transform it into a BufferComponentClass
 ]]
-function BufferConstructor.fromString(str : string) : Types.BufferComponentClass
+function BufferConstructor.fromString(str : string) : BufferComponentClass
 	if(not str or type(str) ~= "string") then error("please insert a valid string") end
 	return BufferConstructor.from(buffer.fromstring(str))
 end
@@ -114,14 +120,14 @@ end
 --[[
 	__tostring metamethod
 ]]
-function BufferComponent.__tostring(self : Types.BufferComponentClass)
+function BufferComponent.__tostring(self : BufferComponentClass)
 	return `BufferComponent(Size:{buffer.len(self.buffer)})`
 end
 
 --[[
 	allocate new memory space to the actual BufferComponentClass.buffer
 ]]
-function BufferComponent.allocate(self : Types.BufferComponentClass,size : number) : ()
+function BufferComponent.allocate(self : BufferComponentClass,size : number) : ()
 	local new_buffer = buffer.create(buffer.len(self.buffer)+size)
 	buffer.copy(new_buffer,0,self.buffer,0,buffer.len(self.buffer))
 	self.buffer = new_buffer
@@ -131,7 +137,7 @@ end
 	Write a Signed Interger 8-bit (-128,127)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteI8(self : Types.BufferComponentClass,number : number) : ()
+function BufferComponent.WriteI8(self : BufferComponentClass,number : number) : ()
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(math.modf(number),Constants.MIN_INT8,Constants.MAX_INT8)
 	local bytes = 1
@@ -145,7 +151,7 @@ end
 	Write a Signed Interger 16-bit (-32768,32767)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteI16(self : Types.BufferComponentClass,number : number) : ()
+function BufferComponent.WriteI16(self : BufferComponentClass,number : number) : ()
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(math.modf(number),Constants.MIN_INT16,Constants.MAX_INT16)
 	local bytes = 2
@@ -159,7 +165,7 @@ end
 	Write a Signed Interger 24-bit (-8388608,8388607)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteI24(self : Types.BufferComponentClass,number : number)
+function BufferComponent.WriteI24(self : BufferComponentClass,number : number)
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.max(Constants.MIN_INT24,math.min(Constants.MAX_INT24,number))
 	number = math.modf(number)
@@ -179,7 +185,7 @@ end
 	Write a Signed Interger 32-bit (-2147483648,2147483647)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteI32(self : Types.BufferComponentClass,number : number) : ()
+function BufferComponent.WriteI32(self : BufferComponentClass,number : number) : ()
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(math.modf(number),Constants.MIN_INT32,Constants.MAX_INT32)
 	local bytes = 4
@@ -193,7 +199,7 @@ end
 	Write a Signed Interger 40-bit (-549755813888,549755813887)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteI40(self : Types.BufferComponentClass,number : number) : ()
+function BufferComponent.WriteI40(self : BufferComponentClass,number : number) : ()
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(math.modf(number),Constants.MIN_INT40,Constants.MAX_INT40)
 	if(number < 0) then
@@ -221,7 +227,7 @@ end
 	Write a Signed Interger 48-bit (-140737488355328,140737488355327)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteI48(self : Types.BufferComponentClass,number : number) : ()
+function BufferComponent.WriteI48(self : BufferComponentClass,number : number) : ()
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(math.modf(number),Constants.MIN_INT48,Constants.MAX_INT48)
 	if(number < 0) then
@@ -256,7 +262,7 @@ end
 	Write a Signed Interger 54-bit (-9007199254740992,9007199254740991)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteI54(self : Types.BufferComponentClass,number : number) : ()
+function BufferComponent.WriteI54(self : BufferComponentClass,number : number) : ()
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(math.modf(number),Constants.MIN_INT54,Constants.MAX_INT54)
 	if(number < 0) then
@@ -293,7 +299,7 @@ end
 	Write a Unsigned Interger 8-bit (0,255)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteU8(self : Types.BufferComponentClass,number : number) : ()
+function BufferComponent.WriteU8(self : BufferComponentClass,number : number) : ()
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(math.modf(number),Constants.MIN_UINT,Constants.MAX_UINT8)
 	local bytes = 1
@@ -307,7 +313,7 @@ end
 	Write a Unsigned Interger 16-bit (0,65535)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteU16(self : Types.BufferComponentClass,number : number) : ()
+function BufferComponent.WriteU16(self : BufferComponentClass,number : number) : ()
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(math.modf(number),Constants.MIN_UINT,Constants.MAX_UINT16)
 	local bytes = 2
@@ -321,7 +327,7 @@ end
 	Write a Unsigned Interger 24-bit (0,16777215)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteU24(self : Types.BufferComponentClass,number : number)
+function BufferComponent.WriteU24(self : BufferComponentClass,number : number)
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.max(Constants.MIN_UINT,math.min(Constants.MAX_UINT24,number))
 	number = math.modf(number)
@@ -341,7 +347,7 @@ end
 	Write a Unsigned Interger 32-bit (0,4294967296)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteU32(self : Types.BufferComponentClass,number : number) : ()
+function BufferComponent.WriteU32(self : BufferComponentClass,number : number) : ()
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(math.modf(number),Constants.MIN_UINT,Constants.MAX_UINT32)
 	local bytes = 4
@@ -355,7 +361,7 @@ end
 	Write a Unsigned Interger 40-bit (0,1099511627775)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteU40(self : Types.BufferComponentClass,number : number) : ()
+function BufferComponent.WriteU40(self : BufferComponentClass,number : number) : ()
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(number,Constants.MIN_UINT,Constants.MAX_UINT40)
 	--0x100000000 is the representation of 2^32 (e.g 4 bytes)
@@ -380,7 +386,7 @@ end
 	Write a Unsigned Interger 48-bit (0,281474976710655)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteU48(self : Types.BufferComponentClass,number : number) : ()
+function BufferComponent.WriteU48(self : BufferComponentClass,number : number) : ()
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(math.modf(number),Constants.MIN_UINT,Constants.MAX_UINT48)
 	local bytes = 6
@@ -411,7 +417,7 @@ end
 	Write a Unsigned Interger 54-bit (0,18014398509481984)
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteU54(self : Types.BufferComponentClass,number : number) : ()
+function BufferComponent.WriteU54(self : BufferComponentClass,number : number) : ()
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(math.modf(number),Constants.MIN_UINT,Constants.MAX_UINT54)
 	local bytes = 7
@@ -444,7 +450,7 @@ end
 	Write a String clamped to max 8 characters
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteString8(self : Types.BufferComponentClass,value : string,len : number)
+function BufferComponent.WriteString8(self : BufferComponentClass,value : string,len : number)
 	assert(type(value) == "string" and type(len) == "number",`{type(value)} and {type(len)} is not valid please include a string and a number`)
 	value = string.sub(value,1,math.clamp(len,Constants.MIN_STRING,Constants.MAX_STRING8))
 	if(buffer.len(self.buffer) < len) then warn(`{len} bytes is required to write a String8`) return end
@@ -457,7 +463,7 @@ end
 	Write a String clamped to max 16 characters
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteString16(self : Types.BufferComponentClass,value : string,len : number)
+function BufferComponent.WriteString16(self : BufferComponentClass,value : string,len : number)
 	assert(type(value) == "string" and type(len) == "number",`{type(value)} and {type(len)} is not valid please include a string and a number`)
 	value = string.sub(value,1,math.clamp(len,Constants.MIN_STRING,Constants.MAX_STRING16))
 	if(buffer.len(self.buffer) < len) then warn(`{len} bytes is required to write a String16`) return end
@@ -470,7 +476,7 @@ end
 	Write a String clamped to max 32 characters
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteString32(self : Types.BufferComponentClass,value : string,len : number)
+function BufferComponent.WriteString32(self : BufferComponentClass,value : string,len : number)
 	assert(type(value) == "string" and type(len) == "number",`{type(value)} and {type(len)} is not valid please include a string and a number`)
 	value = string.sub(value,1,math.clamp(len,Constants.MIN_STRING,Constants.MAX_STRING32))
 	if(buffer.len(self.buffer) < len) then warn(`{len} bytes is required to write a String32`) return end
@@ -483,7 +489,7 @@ end
 	Write a String clamped to max 64 characters
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteString64(self : Types.BufferComponentClass,value : string,len : number)
+function BufferComponent.WriteString64(self : BufferComponentClass,value : string,len : number)
 	assert(type(value) == "string" and type(len) == "number",`{type(value)} and {type(len)} is not valid please include a string and a number`)
 	value = string.sub(value,1,math.clamp(len,Constants.MIN_STRING,Constants.MAX_STRING64))
 	if(buffer.len(self.buffer) < len) then warn(`{len} bytes is required to write a String64`) return end
@@ -496,7 +502,7 @@ end
 	Write a String without taking care of the len this mean you can write a long string to buffer and it will write it entirely
 	if the number exit the allowed value the number is automaticly clamped.
 ]]
-function BufferComponent.WriteString(self : Types.BufferComponentClass,value : string)
+function BufferComponent.WriteString(self : BufferComponentClass,value : string)
 	assert(type(value) == "string","please insert a string to write")
 	if(buffer.len(self.buffer) < #value) then warn(`{#value} bytes is required to write a String`) return end
 	local success,outOfBounds = pcall(buffer.writestring,self.buffer,self.offset,value,#value)
@@ -509,7 +515,7 @@ end
 	this take only 1 byte for the buffer to write a boolean
 	if you pass nill this mean false but if you pass other than false or nil it will mean true
 ]]
-function BufferComponent.WriteBool1(self : Types.BufferComponentClass,value : any)
+function BufferComponent.WriteBool1(self : BufferComponentClass,value : any)
 	if(buffer.len(self.buffer) < 1) then warn(`1 bytes is required to write a Bool1`) return end
 	local success,outOfBounds = pcall(buffer.writebits,self.buffer,0,1,if(value) then 1 else 0)
 	if(outOfBounds) then warn(outOfBounds) return end
@@ -520,7 +526,7 @@ end
 	this take only 1 byte for the buffer to write a 8 boolean
 	PLEASE THIS FUNCTION ONLY ACCEPT ARRAY LIKE : {10,false,15,...}
 ]]
-function BufferComponent.WriteBool8(self : Types.BufferComponentClass,value : {any})
+function BufferComponent.WriteBool8(self : BufferComponentClass,value : {any})
 	assert(type(value) == "table","please insert an array")
 	if(buffer.len(self.buffer) < 1) then warn(`1 bytes is required to write a Bool8`) return end
 	local success,outOfBounds = pcall(function()
@@ -535,7 +541,7 @@ end
 	Write a Float 16-bit Interger to the buffer
 	this can lost precisions for more precisions use F32 or F64
 ]]
-function BufferComponent.WriteF16(self : Types.BufferComponentClass,number : number)
+function BufferComponent.WriteF16(self : BufferComponentClass,number : number)
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	local bytes = 2
 	if(buffer.len(self.buffer) < bytes) then warn(`2 bytes is required to write a Float16`) return end
@@ -588,7 +594,7 @@ end
 --[[
 	Write a Float 32-bit Interger to the buffer
 ]]
-function BufferComponent.WriteF32(self : Types.BufferComponentClass,number : number)
+function BufferComponent.WriteF32(self : BufferComponentClass,number : number)
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(number,Constants.MIN_FLOAT32,Constants.MAX_FLOAT32)
 	local bytes = 4
@@ -601,7 +607,7 @@ end
 --[[
 	Write a Float 64-bit Interger to the buffer
 ]]
-function BufferComponent.WriteF64(self : Types.BufferComponentClass,number : number)
+function BufferComponent.WriteF64(self : BufferComponentClass,number : number)
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(number,Constants.MIN_FLOAT64,Constants.MAX_FLOAT64)
 	local bytes = 8
@@ -615,7 +621,7 @@ end
 	Write a 1-bit (0,1)
 	this need 1 byte to buffer
 ]]
-function BufferComponent.WriteU1(self : Types.BufferComponentClass,number : number)
+function BufferComponent.WriteU1(self : BufferComponentClass,number : number)
 	if(not number or type(number) ~= "number") then warn(`{type(number)} is not a number.`) return end
 	number = math.clamp(math.modf(number),Constants.MIN_UINT,Constants.MAX_UINT1)
 	local bytes = 1
@@ -628,7 +634,7 @@ end
 --[[
 	Write a Instance to the instance_buffer.
 ]]
-function BufferComponent.WriteInstance(self : Types.BufferComponentClass,Instance : Instance)
+function BufferComponent.WriteInstance(self : BufferComponentClass,Instance : Instance)
 	if(not Instance or not Instance:IsA("Instance")) then warn(`{Instance} is not a Instance.`) return end
 	table.insert(self.instance_buffer,Instance)
 	self.instance_offset += 1
@@ -637,7 +643,7 @@ end
 --[[
 	Write a Vector2 to buffer.
 ]]
-function BufferComponent.WriteVector2(self : Types.BufferComponentClass,vector2 : Vector2)
+function BufferComponent.WriteVector2(self : BufferComponentClass,vector2 : Vector2)
 	assert(typeof(vector2) == "Vector2","vector2 must be a Vector2")
 	local x = math.clamp(vector2.X,Constants.MIN_FLOAT64,Constants.MAX_FLOAT64)
 	local y = math.clamp(vector2.Y,Constants.MIN_FLOAT64,Constants.MAX_FLOAT64)
@@ -654,7 +660,7 @@ end
 --[[
 	Write a Vector3 to buffer.
 ]]
-function BufferComponent.WriteVector3(self : Types.BufferComponentClass,vector3 : Vector3)
+function BufferComponent.WriteVector3(self : BufferComponentClass,vector3 : Vector3)
 	assert(typeof(vector3) == "Vector3","vector3 must be a Vector3")
 	local x = math.clamp(vector3.X,Constants.MIN_FLOAT64,Constants.MAX_FLOAT64)
 	local y = math.clamp(vector3.Y,Constants.MIN_FLOAT64,Constants.MAX_FLOAT64)
@@ -673,7 +679,7 @@ end
 --[[
 	Write a WriteVector2Int16 to buffer.
 ]]
-function BufferComponent.WriteVector2Int16(self : Types.BufferComponentClass,vector2int16 : Vector2int16)
+function BufferComponent.WriteVector2Int16(self : BufferComponentClass,vector2int16 : Vector2int16)
 	assert(typeof(vector2int16) == "Vector2int16","vector2int16 must be a Vector2int16")
 	local x = math.clamp(vector2int16.X,Constants.MIN_INT16,Constants.MAX_INT16)
 	local y = math.clamp(vector2int16.Y,Constants.MIN_INT16,Constants.MAX_INT16)
@@ -690,7 +696,7 @@ end
 --[[
 	Write a WriteVector3Int16 to buffer.
 ]]
-function BufferComponent.WriteVector3Int16(self : Types.BufferComponentClass,vector3int16 : Vector3int16)
+function BufferComponent.WriteVector3Int16(self : BufferComponentClass,vector3int16 : Vector3int16)
 	assert(typeof(vector3int16) == "Vector3int16","vector3int16 must be a Vector3int16")
 	local x = math.clamp(vector3int16.X,Constants.MIN_INT16,Constants.MAX_INT16)
 	local y = math.clamp(vector3int16.Y,Constants.MIN_INT16,Constants.MAX_INT16)
@@ -709,7 +715,7 @@ end
 --[[
 	Write a WriteCFrame to buffer.
 ]]
-function BufferComponent.WriteCFrame(self : Types.BufferComponentClass,CF : CFrame)
+function BufferComponent.WriteCFrame(self : BufferComponentClass,CF : CFrame)
 	assert(typeof(CF) == "CFrame","CF must be a CFrame")
 	local bytes = 92
 	if(buffer.len(self.buffer) < bytes) then warn(`92 bytes is required to write a CFrame`) return end
@@ -727,7 +733,7 @@ end
 	Write a WriteLossyCFrame to buffer.
 	this cframe have less precisions but allow compressions if needed.
 ]]
-function BufferComponent.WriteLossyCFrame(self : Types.BufferComponentClass,CF : CFrame)
+function BufferComponent.WriteLossyCFrame(self : BufferComponentClass,CF : CFrame)
 	assert(typeof(CF) == "CFrame","CF must be a CFrame")
 	local bytes = 48
 	if(buffer.len(self.buffer) < bytes) then warn(`48 bytes is required to write a LossyCFrame`) return end
@@ -744,7 +750,7 @@ end
 --[[
 	Write a Udim to buffer.
 ]]
-function BufferComponent.WriteUdim(self : Types.BufferComponentClass,udim : UDim)
+function BufferComponent.WriteUdim(self : BufferComponentClass,udim : UDim)
 	assert(typeof(udim) == "UDim","Udim must be a Udim")
 	local Scale = math.clamp(udim.Scale,Constants.MIN_FLOAT32,Constants.MAX_FLOAT32)
 	local Offset = math.clamp(udim.Offset,Constants.MIN_FLOAT32,Constants.MAX_FLOAT32)
@@ -761,7 +767,7 @@ end
 --[[
 	Write a Udim2 to buffer.
 ]]
-function BufferComponent.WriteUdim2(self : Types.BufferComponentClass,udim2 : UDim2)
+function BufferComponent.WriteUdim2(self : BufferComponentClass,udim2 : UDim2)
 	assert(typeof(udim2) == "UDim2","Udim2 must be a Udim2")
 	local ScaleX,ScaleY = math.clamp(udim2.X.Scale,Constants.MIN_FLOAT32,Constants.MAX_FLOAT32),math.clamp(udim2.Y.Scale,Constants.MIN_FLOAT32,Constants.MAX_FLOAT32)
 	local OffsetX,OffsetY = math.clamp(udim2.X.Offset,Constants.MIN_FLOAT32,Constants.MAX_FLOAT32),math.clamp(udim2.Y.Offset,Constants.MIN_FLOAT32,Constants.MAX_FLOAT32)
@@ -780,7 +786,7 @@ end
 --[[
 	Write a Color3 to buffer.
 ]]
-function BufferComponent.WriteColor3(self : Types.BufferComponentClass,color : Color3)
+function BufferComponent.WriteColor3(self : BufferComponentClass,color : Color3)
 	assert(typeof(color) == "Color3","color must be a Color3")
 	local bytes = 12
 	local r = math.clamp(color.R,Constants.MIN_FLOAT32,Constants.MAX_FLOAT32)
@@ -799,7 +805,7 @@ end
 --[[
 	Write a Rect to buffer.
 ]]
-function BufferComponent.WriteRect(self : Types.BufferComponentClass,rect : Rect)
+function BufferComponent.WriteRect(self : BufferComponentClass,rect : Rect)
 	assert(typeof(rect) == "Rect","rect must be a Rect")
 	local bytes = 32
 	if(buffer.len(self.buffer) < bytes) then warn(`32 bytes is required to write a Rect`) return end
@@ -810,7 +816,7 @@ end
 --[[
 	Write a Region3 to buffer.
 ]]
-function BufferComponent.WriteRegion3(self : Types.BufferComponentClass,region3 : Region3)
+function BufferComponent.WriteRegion3(self : BufferComponentClass,region3 : Region3)
 	assert(typeof(region3) == "Region3","region3 must be a Region3")
 	local bytes = 116
 	if(buffer.len(self.buffer) < bytes) then warn(`116 bytes is required to write a Region3`) return end
@@ -823,7 +829,7 @@ end
 --[[
 	Write a Region3int16 to buffer.
 ]]
-function BufferComponent.WriteRegion3int16(self : Types.BufferComponentClass,region3int16 : Region3int16)
+function BufferComponent.WriteRegion3int16(self : BufferComponentClass,region3int16 : Region3int16)
 	assert(typeof(region3int16) == "Region3int16","region3int16 must be a Region3int16")
 	local bytes = 12
 	if(buffer.len(self.buffer) < bytes) then warn(`12 bytes is required to write a region3int16`) return end
@@ -838,7 +844,7 @@ end
 --[[
 	Read a SignedInteger8-bit from the buffer
 ]]
-function BufferComponent.ReadI8(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadI8(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	return buffer.readi8(self.buffer,offset)
 end
@@ -846,7 +852,7 @@ end
 --[[
 	Read a SignedInteger16-bit from the buffer
 ]]
-function BufferComponent.ReadI16(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadI16(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	return buffer.readi16(self.buffer,offset)
 end
@@ -854,7 +860,7 @@ end
 --[[
 	Read a SignedInteger24-bit from the buffer
 ]]
-function BufferComponent.ReadI24(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadI24(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local b1 = buffer.readu8(self.buffer,offset)
 	local b2 = buffer.readu8(self.buffer,offset + 1)
@@ -869,7 +875,7 @@ end
 --[[
 	Read a SignedInteger32-bit from the buffer
 ]]
-function BufferComponent.ReadI32(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadI32(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	return buffer.readi32(self.buffer,offset)
 end
@@ -877,7 +883,7 @@ end
 --[[
 	Read a SignedInteger40-bit from the buffer
 ]]
-function BufferComponent.ReadI40(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadI40(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local b1 = buffer.readu8(self.buffer,offset)
 	local b2 = buffer.readu8(self.buffer,offset + 1)
@@ -908,7 +914,7 @@ end
 --[[
 	Read a SignedInteger48-bit from the buffer
 ]]
-function BufferComponent.ReadI48(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadI48(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local b1 = buffer.readu8(self.buffer,offset)
 	local b2 = buffer.readu8(self.buffer,offset + 1)
@@ -937,7 +943,7 @@ end
 --[[
 	Read a SignedInteger54-bit from the buffer
 ]]
-function BufferComponent.ReadI54(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadI54(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local byte7 = buffer.readu8(self.buffer, offset)
 	local byte6 = buffer.readu8(self.buffer, offset + 1)
@@ -967,10 +973,15 @@ function BufferComponent.ReadI54(self : Types.BufferComponentClass,offset : numb
 	return value
 end
 
+function BufferComponent.ReadU1(self : BufferComponentClass,offset : number)
+	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
+	return buffer.readbits(self.buffer,offset,1)
+end
+
 --[[
 	Read a UnsignedInteger8-bit from the buffer
 ]]
-function BufferComponent.ReadU8(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadU8(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	return buffer.readu8(self.buffer,offset)
 end
@@ -978,7 +989,7 @@ end
 --[[
 	Read a UnsignedInteger16-bit from the buffer
 ]]
-function BufferComponent.ReadU16(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadU16(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	return buffer.readu16(self.buffer,offset)
 end
@@ -986,7 +997,7 @@ end
 --[[
 	Read a UnsignedInteger24-bit from the buffer
 ]]
-function BufferComponent.ReadU24(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadU24(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local b1 = buffer.readu8(self.buffer,offset)
 	local b2 = buffer.readu8(self.buffer,offset + 1)
@@ -998,7 +1009,7 @@ end
 --[[
 	Read a UnsignedInteger32-bit from the buffer
 ]]
-function BufferComponent.ReadU32(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadU32(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	return buffer.readu32(self.buffer,offset)
 end
@@ -1006,7 +1017,7 @@ end
 --[[
 	Read a UnsignedInteger40-bit from the buffer
 ]]
-function BufferComponent.ReadU40(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadU40(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local b1 = buffer.readu8(self.buffer,offset)
 	local b2 = buffer.readu8(self.buffer,offset + 1)
@@ -1029,7 +1040,7 @@ end
 --[[
 	Read a UnsignedInteger48-bit from the buffer
 ]]
-function BufferComponent.ReadU48(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadU48(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local b1 = buffer.readu8(self.buffer,offset)
 	local b2 = buffer.readu8(self.buffer,offset + 1)
@@ -1055,7 +1066,7 @@ end
 --[[
 	Read a UnsignedInteger54-bit from the buffer
 ]]
-function BufferComponent.ReadU54(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadU54(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local byte7 = buffer.readu8(self.buffer, offset)
 	local byte6 = buffer.readu8(self.buffer, offset + 1)
@@ -1092,7 +1103,7 @@ end
 
 	the len is upper then the str string and this will thrown a string overflow.
 ]]
-function BufferComponent.ReadString(self : Types.BufferComponentClass,len : number?,offset : number?)
+function BufferComponent.ReadString(self : BufferComponentClass,len : number?,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local len = (type(len) == "number" and len <= self.offset) and len or Constants.MIN_STRING
 	return buffer.readstring(self.buffer,offset,len)
@@ -1102,7 +1113,7 @@ end
 	Read a boolean-1bit from the buffer 
 	this return a boolean not a number.
 ]]
-function BufferComponent.ReadBool1(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadBool1(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local boolean_bits : boolean = (buffer.readbits(self.buffer,offset,1) == 1) and true or false
 	return boolean_bits
@@ -1115,7 +1126,7 @@ end
 	.values = sorted list of all booleans.
 	:majority() -> return true if the list contain more true otherwise it return false.
 ]]
-function BufferComponent.ReadBool8(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadBool8(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local booleans = {}
 	for i = 0,7 do
@@ -1142,7 +1153,7 @@ end
 --[[
 	Read a Float16-bit from the buffer
 ]]
-function BufferComponent.ReadF16(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadF16(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	--read the current number
 	local uint16 = buffer.readu16(self.buffer, offset)
@@ -1177,7 +1188,7 @@ end
 --[[
 	Read a Float32-bit from the buffer
 ]]
-function BufferComponent.ReadF32(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadF32(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	return buffer.readf32(self.buffer,offset)
 end
@@ -1185,7 +1196,7 @@ end
 --[[
 	Read a Float64-bit from the buffer
 ]]
-function BufferComponent.ReadF64(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadF64(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	return buffer.readf64(self.buffer,offset)
 end
@@ -1193,7 +1204,7 @@ end
 --[[
 	Read a Instance from the instance_buffer
 ]]
-function BufferComponent.ReadInstance(self : Types.BufferComponentClass,instance_offset : number?)
+function BufferComponent.ReadInstance(self : BufferComponentClass,instance_offset : number?)
 	local instance_offset = (type(instance_offset) == "number" and instance_offset <= self.instance_offset) and instance_offset or self.instance_offset
 	return self.instance_buffer[instance_offset]
 end
@@ -1201,7 +1212,7 @@ end
 --[[
 	Read a ReadVector2 from the buffer
 ]]
-function BufferComponent.ReadVector2(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadVector2(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	return Vector2.new(buffer.readf64(self.buffer,offset),buffer.readf64(self.buffer,offset + 8))
 end
@@ -1209,7 +1220,7 @@ end
 --[[
 	Read a ReadVector2int16 from the buffer
 ]]
-function BufferComponent.ReadVector2int16(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadVector2int16(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	return Vector2int16.new(buffer.readi16(self.buffer,offset),buffer.readi16(self.buffer,offset + 2))
 end
@@ -1217,7 +1228,7 @@ end
 --[[
 	Read a ReadVector3 from the buffer
 ]]
-function BufferComponent.ReadVector3(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadVector3(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	return Vector3.new(buffer.readf64(self.buffer,offset),buffer.readf64(self.buffer,offset + 8),buffer.readf64(self.buffer,offset + 16))
 end
@@ -1225,7 +1236,7 @@ end
 --[[
 	Read a ReadVector3int16 from the buffer
 ]]
-function BufferComponent.ReadVector3int16(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadVector3int16(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	return Vector3int16.new(buffer.readi16(self.buffer,offset),buffer.readi16(self.buffer,offset + 2),buffer.readi16(self.buffer,offset + 4))
 end
@@ -1233,7 +1244,7 @@ end
 --[[
 	Read a ReadCFrame from the buffer
 ]]
-function BufferComponent.ReadCFrame(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadCFrame(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local components = {}
 	for i = 0, 11 do
@@ -1245,7 +1256,7 @@ end
 --[[
 	Read a LossyCFrame from the buffer
 ]]
-function BufferComponent.ReadLossyCFrame(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadLossyCFrame(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local components = {}
 	for i = 0, 11 do
@@ -1257,7 +1268,7 @@ end
 --[[
 	Read a Udim from the buffer
 ]]
-function BufferComponent.ReadUdim(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadUdim(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local scale = buffer.readf32(self.buffer,self.offset)
 	local offset = buffer.readf32(self.buffer,self.offset+4)
@@ -1267,7 +1278,7 @@ end
 --[[
 	Read a Udim2 from the buffer
 ]]
-function BufferComponent.ReadUdim2(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadUdim2(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local scaleX,scaleY = buffer.readf32(self.buffer,offset),buffer.readf32(self.buffer,offset + 4)
 	local offsetX,offsetY = buffer.readf32(self.buffer,offset + 8),buffer.readf32(self.buffer,offset + 12)
@@ -1277,7 +1288,7 @@ end
 --[[
 	Read a Color3 from the buffer
 ]]
-function BufferComponent.ReadColor3(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadColor3(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local r = buffer.readf32(self.buffer,offset)*255
 	local g = buffer.readf32(self.buffer,offset+4)*255
@@ -1288,7 +1299,7 @@ end
 --[[
 	Read a Rect from the buffer
 ]]
-function BufferComponent.ReadRect(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadRect(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local max = self:ReadVector2(offset)
 	local min = self:ReadVector2(offset + 16)
@@ -1298,7 +1309,7 @@ end
 --[[
 	Read a Region3 from the buffer
 ]]
-function BufferComponent.ReadRegion3(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadRegion3(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local cframe = self:ReadCFrame(offset)
 	local size = self:ReadVector3(offset + 92)
@@ -1311,7 +1322,7 @@ end
 --[[
 	Read a Region3int16 from the buffer
 ]]
-function BufferComponent.ReadRegion3int16(self : Types.BufferComponentClass,offset : number?)
+function BufferComponent.ReadRegion3int16(self : BufferComponentClass,offset : number?)
 	local offset = (type(offset) == "number" and offset <= self.offset) and offset or self.offset
 	local max = self:ReadVector3int16(offset)
 	local min = self:ReadVector3int16(offset + 6)
@@ -1323,35 +1334,35 @@ end
 --[[
 	return the actual offset of the buffer
 ]]
-function BufferComponent.GetOffset(self : Types.BufferComponentClass)
+function BufferComponent.GetOffset(self : BufferComponentClass)
 	return self.offset
 end
 
 --[[
 	return the actual instance offset of the buffer
 ]]
-function BufferComponent.GetInstanceOffset(self : Types.BufferComponentClass)
+function BufferComponent.GetInstanceOffset(self : BufferComponentClass)
 	return self.instance_offset
 end
 
 --[[
 	return the current buffer
 ]]
-function BufferComponent.GetBuffer(self : Types.BufferComponentClass)
+function BufferComponent.GetBuffer(self : BufferComponentClass)
 	return self.buffer
 end
 
 --[[
 	return the current instance buffer
 ]]
-function BufferComponent.GetInstanceBuffer(self : Types.BufferComponentClass)
+function BufferComponent.GetInstanceBuffer(self : BufferComponentClass)
 	return self.instance_buffer
 end
 
 --[[
 	return the actual buffer size (not the written data size)
 ]]
-function BufferComponent.GetBufferSize(self : Types.BufferComponentClass)
+function BufferComponent.GetBufferSize(self : BufferComponentClass)
 	return buffer.len(self.buffer)
 end
 
@@ -1359,7 +1370,7 @@ end
 	clear the buffer to a new one with the same size
 	the offset is also set to 0.
 ]]
-function BufferComponent.clear(self : Types.BufferComponentClass)
+function BufferComponent.clear(self : BufferComponentClass)
 	local buffer_blank = buffer.create(buffer.len(self.buffer))
 	self.buffer = buffer_blank
 	self.offset = 0
@@ -1369,14 +1380,201 @@ end
 	Destroy the actual BufferComponent.
 	You can't use the BufferComponent after this.
 ]]
-function BufferComponent.Destroy(self : Types.BufferComponentClass)
+function BufferComponent.Destroy(self : BufferComponentClass)
 	self.buffer = nil :: any
 	self.instance_buffer = nil :: any
 	self.instance_offset = nil :: any
 	self.offset = nil :: any
-	table.clear(self)
-	setmetatable(self,nil)
+	table.clear(self :: any)
 	self = nil :: any
 end
+
+--Constructor alias
+BufferConstructor.new = BufferConstructor.create
+BufferConstructor.New = BufferConstructor.create
+BufferConstructor.From = BufferConstructor.from
+BufferConstructor.FromString = BufferConstructor.fromString
+BufferConstructor.Tostring = BufferConstructor.tostring
+
+--Component alias
+BufferComponent.Allocate = BufferComponent.allocate
+
+--[Writer] signed interger alias
+BufferComponent.writeI8 = BufferComponent.WriteI8
+BufferComponent.writei8 = BufferComponent.WriteI8
+BufferComponent.writeI16 = BufferComponent.WriteI16
+BufferComponent.writei16 = BufferComponent.WriteI16
+BufferComponent.writeI24 = BufferComponent.WriteI24
+BufferComponent.writei24 = BufferComponent.WriteI24
+BufferComponent.writeI32 = BufferComponent.WriteI32
+BufferComponent.writei32 = BufferComponent.WriteI32
+BufferComponent.writeI40 = BufferComponent.WriteI40
+BufferComponent.writei40 = BufferComponent.WriteI40
+BufferComponent.writeI48 = BufferComponent.WriteI48
+BufferComponent.writei48 = BufferComponent.WriteI48
+BufferComponent.writeI54 = BufferComponent.WriteI54
+BufferComponent.writei54 = BufferComponent.WriteI54
+
+--[Writer] unsigned interger alias
+BufferComponent.writeU1 = BufferComponent.WriteU1
+BufferComponent.writeu1 = BufferComponent.WriteU1
+BufferComponent.writeU8 = BufferComponent.WriteU8
+BufferComponent.writeu8 = BufferComponent.WriteU8
+BufferComponent.writeU16 = BufferComponent.WriteU16
+BufferComponent.writeu16 = BufferComponent.WriteU16
+BufferComponent.writeU24 = BufferComponent.WriteU24
+BufferComponent.writeu24 = BufferComponent.WriteU24
+BufferComponent.writeU32 = BufferComponent.WriteU32
+BufferComponent.writeu32 = BufferComponent.WriteU32
+BufferComponent.writeU40 = BufferComponent.WriteU40
+BufferComponent.writeu40 = BufferComponent.WriteU40
+BufferComponent.writeU48 = BufferComponent.WriteU48
+BufferComponent.writeu48 = BufferComponent.WriteU48
+BufferComponent.writeU54 = BufferComponent.WriteU54
+BufferComponent.writeu54 = BufferComponent.WriteU54
+
+--[Writer] float interger alias
+BufferComponent.writeF16 = BufferComponent.WriteF16
+BufferComponent.writef16 = BufferComponent.WriteF16
+BufferComponent.writeF32 = BufferComponent.WriteF32
+BufferComponent.writef32 = BufferComponent.WriteF32
+BufferComponent.writeF64 = BufferComponent.WriteF64
+BufferComponent.writef64 = BufferComponent.WriteF64
+
+--[Writer] string alias
+BufferComponent.writeString8 = BufferComponent.WriteString8
+BufferComponent.writestring8 = BufferComponent.WriteString8
+BufferComponent.writeString16 = BufferComponent.WriteString16
+BufferComponent.writestring16 = BufferComponent.WriteString16
+BufferComponent.writeString32 = BufferComponent.WriteString32
+BufferComponent.writestring32 = BufferComponent.WriteString32
+BufferComponent.writeString64 = BufferComponent.WriteString64
+BufferComponent.writestring64 = BufferComponent.WriteString64
+BufferComponent.writeString = BufferComponent.WriteString
+BufferComponent.writestring = BufferComponent.WriteString
+
+--[Writer] instance alias
+BufferComponent.writeInstance = BufferComponent.WriteInstance
+BufferComponent.writeinstance = BufferComponent.WriteInstance
+
+--[Writer] roblox type alias
+BufferComponent.writeVector2 = BufferComponent.WriteVector2
+BufferComponent.writevector2 = BufferComponent.WriteVector2
+BufferComponent.writeVector2int16 = BufferComponent.WriteVector2Int16
+BufferComponent.writevector2int16 = BufferComponent.WriteVector2Int16
+BufferComponent.writeVector3 = BufferComponent.WriteVector3
+BufferComponent.writevector3 = BufferComponent.WriteVector3
+BufferComponent.writeVector3int16 = BufferComponent.WriteVector3Int16
+BufferComponent.writevector3int16 = BufferComponent.WriteVector3Int16
+BufferComponent.writeCFrame = BufferComponent.WriteCFrame
+BufferComponent.writecframe = BufferComponent.WriteCFrame
+BufferComponent.writeLossyCFrame = BufferComponent.WriteLossyCFrame
+BufferComponent.writelossyCFrame = BufferComponent.WriteLossyCFrame
+BufferComponent.writeUdim = BufferComponent.WriteUdim
+BufferComponent.writeudim = BufferComponent.WriteUdim
+BufferComponent.writeUdim2 = BufferComponent.WriteUdim2
+BufferComponent.writeudim2 = BufferComponent.WriteUdim2
+BufferComponent.writeColor3 = BufferComponent.WriteColor3
+BufferComponent.writecolor3 = BufferComponent.WriteColor3
+BufferComponent.writeRect = BufferComponent.WriteRect
+BufferComponent.writerect = BufferComponent.WriteRect
+BufferComponent.writeRegion3 = BufferComponent.WriteRegion3
+BufferComponent.writeregion3 = BufferComponent.WriteRegion3
+BufferComponent.writeRegion3int16 = BufferComponent.WriteRegion3int16
+BufferComponent.writeregion3int16 = BufferComponent.WriteRegion3int16
+
+--[Reader] signed interger alias
+BufferComponent.readI8 = BufferComponent.ReadI8
+BufferComponent.readi8 = BufferComponent.ReadI8
+BufferComponent.readI16 = BufferComponent.ReadI16
+BufferComponent.readi16 = BufferComponent.ReadI16
+BufferComponent.readI24 = BufferComponent.ReadI24
+BufferComponent.readi24 = BufferComponent.ReadI24
+BufferComponent.readI32 = BufferComponent.ReadI32
+BufferComponent.readi32 = BufferComponent.ReadI32
+BufferComponent.readI40 = BufferComponent.ReadI40
+BufferComponent.readi40 = BufferComponent.ReadI40
+BufferComponent.readI48 = BufferComponent.ReadI48
+BufferComponent.readi48 = BufferComponent.ReadI48
+BufferComponent.readI54 = BufferComponent.ReadI54
+BufferComponent.readi54 = BufferComponent.ReadI54
+
+--[Reader] unsigned interger alias
+BufferComponent.readU1 = BufferComponent.ReadU1
+BufferComponent.readu1 = BufferComponent.ReadU1
+BufferComponent.readU8 = BufferComponent.ReadU8
+BufferComponent.readu8 = BufferComponent.ReadU8
+BufferComponent.readU16 = BufferComponent.ReadU16
+BufferComponent.readu16 = BufferComponent.ReadU16
+BufferComponent.readU24 = BufferComponent.ReadU24
+BufferComponent.readu24 = BufferComponent.ReadU24
+BufferComponent.readU32 = BufferComponent.ReadU32
+BufferComponent.readu32 = BufferComponent.ReadU32
+BufferComponent.readU40 = BufferComponent.ReadU40
+BufferComponent.readu40 = BufferComponent.ReadU40
+BufferComponent.readU48 = BufferComponent.ReadU48
+BufferComponent.readu48 = BufferComponent.ReadU48
+BufferComponent.readU54 = BufferComponent.ReadU54
+BufferComponent.readu54 = BufferComponent.ReadU54
+
+--[Reader] float interger alias
+BufferComponent.readF16 = BufferComponent.ReadF16
+BufferComponent.readf16 = BufferComponent.ReadF16
+BufferComponent.readF32 = BufferComponent.ReadF32
+BufferComponent.readf32 = BufferComponent.ReadF32
+BufferComponent.readF64 = BufferComponent.ReadF64
+BufferComponent.readf64 = BufferComponent.ReadF64
+
+--[Reader] string alias
+BufferComponent.readString = BufferComponent.ReadString
+BufferComponent.readstring = BufferComponent.ReadString
+
+--[Reader] instance alias
+BufferComponent.readInstance = BufferComponent.ReadInstance
+BufferComponent.readinstance = BufferComponent.ReadInstance
+
+--[Reader] roblox type alias
+BufferComponent.readVector2 = BufferComponent.ReadVector2
+BufferComponent.readvector2 = BufferComponent.ReadVector2
+BufferComponent.readVector2int16 = BufferComponent.ReadVector2int16
+BufferComponent.readvector2int16 = BufferComponent.ReadVector2int16
+BufferComponent.readVector3 = BufferComponent.ReadVector3
+BufferComponent.readvector3 = BufferComponent.ReadVector3
+BufferComponent.readVector3int16 = BufferComponent.ReadVector3int16
+BufferComponent.readvector3int16 = BufferComponent.ReadVector3int16
+BufferComponent.readCFrame = BufferComponent.ReadCFrame
+BufferComponent.readcframe = BufferComponent.ReadCFrame
+BufferComponent.readLossyCFrame = BufferComponent.ReadLossyCFrame
+BufferComponent.readlossyCFrame = BufferComponent.ReadLossyCFrame
+BufferComponent.readUdim = BufferComponent.ReadUdim
+BufferComponent.readudim = BufferComponent.ReadUdim
+BufferComponent.readUdim2 = BufferComponent.ReadUdim2
+BufferComponent.readudim2 = BufferComponent.ReadUdim2
+BufferComponent.readColor3 = BufferComponent.ReadColor3
+BufferComponent.readcolor3 = BufferComponent.ReadColor3
+BufferComponent.readRect = BufferComponent.ReadRect
+BufferComponent.readrect = BufferComponent.ReadRect
+BufferComponent.readRegion3 = BufferComponent.ReadRegion3
+BufferComponent.readregion3 = BufferComponent.ReadRegion3
+BufferComponent.readRegion3int16 = BufferComponent.ReadRegion3int16
+BufferComponent.readregion3int16 = BufferComponent.ReadRegion3int16
+
+--[Cursor] alias
+BufferComponent.getOffset = BufferComponent.GetOffset
+BufferComponent.getoffset = BufferComponent.GetOffset
+BufferComponent.getInstanceOffset = BufferComponent.GetInstanceOffset
+BufferComponent.getinstanceoffset = BufferComponent.GetInstanceOffset
+
+--[Buffer] alias
+BufferComponent.getBuffer = BufferComponent.GetBuffer
+BufferComponent.getbuffer = BufferComponent.GetBuffer
+BufferComponent.getInstanceBuffer = BufferComponent.GetInstanceBuffer
+BufferComponent.getinstancebuffer = BufferComponent.GetInstanceBuffer
+BufferComponent.getBufferSize = BufferComponent.GetBufferSize
+BufferComponent.getbuffersize = BufferComponent.GetBufferSize
+
+--[Lifecycle] alias
+BufferComponent.Clear = BufferComponent.clear
+BufferComponent.Destroy = BufferComponent.Destroy
 
 return BufferConstructor
