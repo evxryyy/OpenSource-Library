@@ -211,13 +211,13 @@ end
 	@param fn - The function to execute
 	@return any - The function's return value
 ]]
-_task_.Execute = function(self,fn : (any) -> any) : any
+_task_.Execute = function(self,callback : (...any) -> ...any) : ...any
 	-- Validate Task instance
 	if(not _task_.IsTask(self)) then return end
 	-- Validate function type
-	if(type(fn) ~= "function") then return end
+	if(type(callback) ~= "function") then return end
 	-- Execute and return result
-	return fn()
+	return callback()
 end
 
 --[[
