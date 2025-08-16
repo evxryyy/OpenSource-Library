@@ -4,6 +4,15 @@
 
 ## Logs
 
+Version : 1.3
+- fixed a bug where ReadU1 was not available on the current version
+- change type annotation to 
+  ```lua
+    typeof(setmetatable({props},bufferComponent))
+  ```
+- added 200+ alias for the buffer component
+
+
 Version : 1.2.2
 - updated comments.
 
