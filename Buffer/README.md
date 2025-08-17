@@ -14,7 +14,7 @@ Versipn : 1.3.1
   BufferComponent.writebool8 = BufferComponent.WriteBool8
   --[Reader] boolean alias
   BufferComponent.readBool1 = BufferComponent.ReadBool1
-  BufferComponent.readerbool1 = BufferComponent.ReadBool1
+  BufferComponent.readbool1 = BufferComponent.ReadBool1
   BufferComponent.readBool8 = BufferComponent.ReadBool8
   BufferComponent.readbool8 = BufferComponent.ReadBool8
   ```
