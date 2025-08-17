@@ -22,24 +22,40 @@ A custom signal implementation that wraps Roblox's `BindableEvent` to provide a 
 
 ## Quick example
 
-```lua
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+=== "Script 1"
 
-local openEvxEngine = ReplicatedStorage.OpenEvxEngine
+	```lua
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local SyncSignal = require(openEvxEngine.SyncSignal)
+	local openEvxEngine = ReplicatedStorage.OpenEvxEngine
 
---Build a new SyncSignal instance
-local build = SyncSignal.new("Build")
+	local SyncSignal = require(openEvxEngine.SyncSignal)
 
---connect the .Event of the BindableEvent
-build:Connect(function(...)
-	print(...) -- prints the arguments passed to the .Fire
-end)
+	--Build a new SyncSignal instance
+	local build = SyncSignal.new("Build")
 
---Fire with arguments (e.g a string)
-build:Fire("hello SyncSignal")
-```
+	--connect the .Event of the BindableEvent
+	build:Connect(function(...)
+		print(...) -- prints the arguments passed to the .Fire
+	end)
+	```
+=== "Script 2"
+
+	```lua
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+	local openEvxEngine = ReplicatedStorage.OpenEvxEngine
+
+	local SyncSignal = require(openEvxEngine.SyncSignal)
+
+	--Build a new SyncSignal instance
+	local build = SyncSignal.new("Build")
+
+	task.wait(1.5) -- wait a little bit to let the "Script1" script connect the bindable event
+
+	--Fire with arguments (e.g a string)
+	build:Fire("hello SyncSignal") -- will print "hello SyncSignal" in the "Script1" script
+	```
 
 ## API
 
