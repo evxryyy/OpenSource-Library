@@ -1453,6 +1453,13 @@ BufferComponent.writestring64 = BufferComponent.WriteString64
 BufferComponent.writeString = BufferComponent.WriteString
 BufferComponent.writestring = BufferComponent.WriteString
 
+--[Writer] boolean alias
+BufferComponent.writeBool1 = BufferComponent.WriteBool1
+BufferComponent.writebool1 = BufferComponent.WriteBool1
+BufferComponent.writeBool8 = BufferComponent.WriteBool8
+BufferComponent.writebool8 = BufferComponent.WriteBool8
+
+
 --[Writer] instance alias
 BufferComponent.writeInstance = BufferComponent.WriteInstance
 BufferComponent.writeinstance = BufferComponent.WriteInstance
@@ -1524,6 +1531,13 @@ BufferComponent.readF32 = BufferComponent.ReadF32
 BufferComponent.readf32 = BufferComponent.ReadF32
 BufferComponent.readF64 = BufferComponent.ReadF64
 BufferComponent.readf64 = BufferComponent.ReadF64
+
+--[Reader] boolean alias
+BufferComponent.readBool1 = BufferComponent.ReadBool1
+BufferComponent.readerbool1 = BufferComponent.ReadBool1
+BufferComponent.readBool8 = BufferComponent.ReadBool8
+BufferComponent.readbool8 = BufferComponent.ReadBool8
+
 
 --[Reader] string alias
 BufferComponent.readString = BufferComponent.ReadString
