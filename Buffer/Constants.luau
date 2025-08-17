@@ -39,5 +39,5 @@ return {
 	MAX_STRING64 = 64,
 	
 	--VERSION--
-	VERSION = "1.3",
+	VERSION = "1.3.1",
 }
