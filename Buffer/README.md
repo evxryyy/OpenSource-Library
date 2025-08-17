@@ -4,6 +4,21 @@
 
 ## Logs
 
+Versipn : 1.3.1
+- added more alias for the component
+  ```lua
+  --[Writer] boolean alias
+  BufferComponent.writeBool1 = BufferComponent.WriteBool1
+  BufferComponent.writebool1 = BufferComponent.WriteBool1
+  BufferComponent.writeBool8 = BufferComponent.WriteBool8
+  BufferComponent.writebool8 = BufferComponent.WriteBool8
+  --[Reader] boolean alias
+  BufferComponent.readBool1 = BufferComponent.ReadBool1
+  BufferComponent.readerbool1 = BufferComponent.ReadBool1
+  BufferComponent.readBool8 = BufferComponent.ReadBool8
+  BufferComponent.readbool8 = BufferComponent.ReadBool8
+  ```
+
 Version : 1.3
 - fixed a bug where ReadU1 was not available on the current version
 - change type annotation to 
