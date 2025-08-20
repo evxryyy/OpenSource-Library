@@ -4,7 +4,7 @@
 
 ## Logs
 
-Versipn : 1.3.1
+Version : 1.3.1
 - added more alias for the component
   ```lua
   --[Writer] boolean alias
